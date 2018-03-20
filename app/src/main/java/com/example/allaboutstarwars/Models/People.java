@@ -10,28 +10,37 @@ import java.util.ArrayList;
  */
 
 public class People implements Serializable {
+    @SerializedName("name")
     public String name;
 
     @SerializedName("birth_year")
     public String birthYear;
 
+    @SerializedName("gender")
     public String gender;
 
     @SerializedName("hair_color")
     public String hairColor;
 
+    @SerializedName("height")
     public String height;
 
     @SerializedName("homeworld")
     public String homeWorldUrl;
 
+    @SerializedName("mass")
     public String mass;
 
     @SerializedName("skin_color")
     public String skinColor;
 
+    @SerializedName("created")
     public String created;
+
+    @SerializedName("edited")
     public String edited;
+
+    @SerializedName("url")
     public String url;
 
     @SerializedName("films")

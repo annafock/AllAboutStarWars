@@ -44,7 +44,7 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.StarWarsVi
         People currentItem = mPeopleList.get(position);
         //String mPeople = currentItem.getClass();
 
-        holder.mTextViewCategory.setText("hej");
+        holder.mTextViewCategory.setText(currentItem.name);
 
     }
 

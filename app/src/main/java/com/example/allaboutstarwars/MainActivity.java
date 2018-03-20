@@ -83,11 +83,11 @@ public class MainActivity extends AppCompatActivity implements StarWarsAdapter.O
 
     @Override
     public void onItemClicked(int position) {
-//        Intent categoryIntent = new Intent(this, CategoryActivity.class);
-//        Category clickedItem = mCategoryList.get(position);
-//
-//        categoryIntent.putExtra(EXTRA_CATEGORY, clickedItem.getItem());
-//
-//        startActivity(categoryIntent);
+        Intent categoryIntent = new Intent(this, CategoryActivity.class);
+        Category clickedItem = mCategoryList.get(position);
+
+        categoryIntent.putExtra(EXTRA_CATEGORY, clickedItem.getItem());
+
+        startActivity(categoryIntent);
     }
 }
