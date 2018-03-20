@@ -13,6 +13,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.allaboutstarwars.Models.People;
+import com.example.allaboutstarwars.Models.StarWarsObject;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -27,14 +28,14 @@ import static com.example.allaboutstarwars.MainActivity.EXTRA_CATEGORY;
  * Created by anna on 3/20/18.
  */
 
-public class CategoryActivity extends AppCompatActivity implements PeopleAdapter.OnItemClickListener{
+public class CategoryActivity extends AppCompatActivity implements MultiModelAdapter.OnItemClickListener{
     public static final String EXTRA_DETAILS = "details";
 
     String categoryName;
     String hitName = "name";
     private RecyclerView mRecyclerView;
-    private PeopleAdapter mPeopleAdapter;
-    private ArrayList<People> mPeopleList;
+    private MultiModelAdapter mMultiModelAdapter;
+    private ArrayList<StarWarsObject> mStarWarsObjectList;
     private RequestQueue mRequestQueue;
     Gson gson;
 
@@ -47,7 +48,7 @@ public class CategoryActivity extends AppCompatActivity implements PeopleAdapter
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mPeopleList = new ArrayList<>();
+        mStarWarsObjectList = new ArrayList<>();
 
         Intent intent = getIntent();
         categoryName = intent.getStringExtra(EXTRA_CATEGORY);
@@ -84,12 +85,12 @@ public class CategoryActivity extends AppCompatActivity implements PeopleAdapter
                                 String result = jsonArray.getJSONObject(i).toString();
 
                                 People people = gson.fromJson(result, People.class);
-                                mPeopleList.add(people);
+                                mStarWarsObjectList.add(people);
                             }
 
-                            mPeopleAdapter = new PeopleAdapter(CategoryActivity.this, mPeopleList);
-                            mRecyclerView.setAdapter(mPeopleAdapter);
-                            mPeopleAdapter.setOnItemClickListener(CategoryActivity.this);
+                            mMultiModelAdapter = new MultiModelAdapter(CategoryActivity.this, mStarWarsObjectList);
+                            mRecyclerView.setAdapter(mMultiModelAdapter);
+                            mMultiModelAdapter.setOnItemClickListener(CategoryActivity.this);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -109,9 +110,9 @@ public class CategoryActivity extends AppCompatActivity implements PeopleAdapter
     @Override
     public void onItemClicked(int position) {
         Intent categoryIntent = new Intent(this, DetailActivity.class);
-        People clickedItem = mPeopleList.get(position);
+        StarWarsObject clickedItem = mStarWarsObjectList.get(position);
 
-        categoryIntent.putExtra(EXTRA_DETAILS, clickedItem.name);
+        //categoryIntent.putExtra(EXTRA_DETAILS, clickedItem.name);
 
         startActivity(categoryIntent);
     }
