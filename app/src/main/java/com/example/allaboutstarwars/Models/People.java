@@ -1,5 +1,6 @@
 package com.example.allaboutstarwars.Models;
 
+import com.example.allaboutstarwars.StarWarsAdapter;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  * Created by anna on 3/19/18.
  */
 
-public class People implements Serializable {
+public class People extends StarWarsObject {
     @SerializedName("name")
     public String name;
 
@@ -33,15 +34,6 @@ public class People implements Serializable {
 
     @SerializedName("skin_color")
     public String skinColor;
-
-    @SerializedName("created")
-    public String created;
-
-    @SerializedName("edited")
-    public String edited;
-
-    @SerializedName("url")
-    public String url;
 
     @SerializedName("films")
     public ArrayList<String> filmsUrls;
