@@ -42,7 +42,6 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.StarWarsVi
     @Override
     public void onBindViewHolder(StarWarsViewHolder holder, int position) {
         People currentItem = mPeopleList.get(position);
-        //String mPeople = currentItem.getClass();
 
         holder.mTextViewCategory.setText(currentItem.name);
 

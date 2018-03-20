@@ -42,44 +42,41 @@ public class DetailActivity extends AppCompatActivity {
 
         mRequestQueue = Volley.newRequestQueue(this);
 
-        //parseJSON();
+        parseJSON();
 
     }
 
-//    private void parseJSON(){
-//        String url = "https://swapi.co/api/" + detailName +"/schema";
-//
-//        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        response.getString();
-//                        try {
-//                            JSONArray jsonArray = response.getJSONArray("results");
-//
-//                            for (int i = 0; i < jsonArray.length(); i++){
-//                                JSONObject result = jsonArray.getJSONObject(i);
-//                                String item = result.getString(hitName);
-//
-//                                mStarWarsList.add(new People(item));
-//                            }
-//
-//                            mStarWarsAdapter = new PeopleAdapter(CategoryActivity.this, mStarWarsList);
-//                            mRecyclerView.setAdapter(mStarWarsAdapter);
-//                            mStarWarsAdapter.setOnItemClickListener(CategoryActivity.this);
-//
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                error.printStackTrace();
-//            }
-//        });
-//
-//        mRequestQueue.add(request);
-//    }
+    private void parseJSON(){
+        String url = "https://swapi.co/api/" + detailName;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                   @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray jsonArray = response.getJSONArray("results");
+
+                            for (int i = 0; i < jsonArray.length(); i++){
+                                JSONObject result = jsonArray.getJSONObject(i);
+
+
+
+                            }
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        mRequestQueue.add(request);
+    }
 }

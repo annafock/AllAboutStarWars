@@ -49,8 +49,16 @@ public class CategoryActivity extends AppCompatActivity implements PeopleAdapter
 
         mPeopleList = new ArrayList<>();
 
-    //    Intent intent = getIntent();
-    //    categoryName = intent.getStringExtra(EXTRA_CATEGORY);
+        Intent intent = getIntent();
+        categoryName = intent.getStringExtra(EXTRA_CATEGORY);
+
+//        //Switch loop to determine item for given category
+//        switch(categoryName){
+//            case "films": hitName = "title";
+//                break;
+//            default: break;
+//
+//        }
 
 
         mRequestQueue = Volley.newRequestQueue(this);
@@ -60,7 +68,7 @@ public class CategoryActivity extends AppCompatActivity implements PeopleAdapter
     }
 
     private void parseJSON(){
-        String url = "https://swapi.co/api/people/";
+        String url = "https://swapi.co/api/" + categoryName +"/";
 
         gson = new Gson();
 
@@ -74,6 +82,7 @@ public class CategoryActivity extends AppCompatActivity implements PeopleAdapter
 
                             for (int i = 0; i < jsonArray.length(); i++){
                                 String result = jsonArray.getJSONObject(i).toString();
+
                                 People people = gson.fromJson(result, People.class);
                                 mPeopleList.add(people);
                             }
@@ -102,8 +111,9 @@ public class CategoryActivity extends AppCompatActivity implements PeopleAdapter
         Intent categoryIntent = new Intent(this, DetailActivity.class);
         People clickedItem = mPeopleList.get(position);
 
-        //categoryIntent.putExtra(EXTRA_DETAILS, clickedItem.getmTitle());
+        categoryIntent.putExtra(EXTRA_DETAILS, clickedItem.name);
 
         startActivity(categoryIntent);
     }
+
 }

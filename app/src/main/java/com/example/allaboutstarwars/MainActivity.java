@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements StarWarsAdapter.O
 
                             for (int i = 0; i < jsonArray.length(); i++){
                                 String hit = jsonArray.get(i).toString();
-                                //String k = hit.keys().next();
                                 mCategoryList.add(new Category(hit));
                             }
 
