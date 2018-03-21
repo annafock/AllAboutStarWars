@@ -13,8 +13,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
+import com.example.allaboutstarwars.Models.Planet;
+import com.example.allaboutstarwars.Models.Species;
 import com.example.allaboutstarwars.Models.StarWarsObject;
+import com.example.allaboutstarwars.Models.Starship;
+import com.example.allaboutstarwars.Models.Vehicle;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -23,7 +28,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static com.example.allaboutstarwars.CategoryActivity.EXTRA_DETAILS;
+import static com.example.allaboutstarwars.CategoryActivity.EXTRA_STAR_WARS_OBJECT;
 
 public class DetailActivity extends AppCompatActivity {
     String personName;
@@ -32,6 +37,7 @@ public class DetailActivity extends AppCompatActivity {
     private MultiModelAdapter mMultiModelAdapter;
     private ArrayList<StarWarsObject> mStarWarsObjectList;
     private RequestQueue mRequestQueue;
+    private ArrayList<String> filmUrl;
     Gson gson;
 
     @Override
@@ -39,8 +45,8 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //TODO switch based on class from intent
-        Intent intent = getIntent();
-        personName = intent.getStringExtra(EXTRA_DETAILS);
+
+        People person = (People) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
 
         setContentView(R.layout.people);
 
@@ -48,18 +54,30 @@ public class DetailActivity extends AppCompatActivity {
         mRecyclerViewFilms.setHasFixedSize(true);
         mRecyclerViewFilms.setLayoutManager(new LinearLayoutManager(this));
 
-        mStarWarsObjectList = new ArrayList<>();
-
         textViewDetailTitle = findViewById(R.id.text_view_detail_title);
+        textViewDetailTitle.setText(person.name);
+
+        mStarWarsObjectList = new ArrayList<>();
 
         mRequestQueue = Volley.newRequestQueue(this);
 
+        filmUrl = person.filmsUrls;
+
+//        for (int i = 0; i < filmUrl.size(); i++ ){
+//            String url = filmUrl.get(i);
+//
+//            parseJSON(url);
+//        }
+
         parseJSON();
+
+
+
 
     }
 
     private void parseJSON(){
-        String url = "https://swapi.co/api/people/";
+        String url = "https://swapi.co/api/films/3/";
 
         gson = new Gson();
 
@@ -68,28 +86,18 @@ public class DetailActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
 
-                        try {
-                            JSONArray jsonArray = response.getJSONArray("results");
+                        //JSONObject jsonObject = response.getJSONObject("");
 
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                String result = jsonArray.getJSONObject(i).toString();
+                        String result = response.toString();
 
-                                StarWarsObject starWarsObject = new StarWarsObject() {
-                                    @Override
-                                    public int hashCode() {
-                                        return super.hashCode();
-                                    }
-                                };
-                                starWarsObject = gson.fromJson(result, People.class);
-                                mStarWarsObjectList.add(starWarsObject);
-                            }
-                            mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, mStarWarsObjectList);
-                            mRecyclerViewFilms.setAdapter(mMultiModelAdapter);
+                        Film film = gson.fromJson(result, Film.class);
+
+                        mStarWarsObjectList.add(film);
 
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, mStarWarsObjectList);
+                        mRecyclerViewFilms.setAdapter(mMultiModelAdapter);
+
 
                     }
                 }, new Response.ErrorListener() {
@@ -100,5 +108,8 @@ public class DetailActivity extends AppCompatActivity {
         });
 
         mRequestQueue.add(request);
+
     }
+
 }
+

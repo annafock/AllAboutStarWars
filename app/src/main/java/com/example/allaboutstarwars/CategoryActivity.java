@@ -34,10 +34,9 @@ import static com.example.allaboutstarwars.MainActivity.EXTRA_CATEGORY;
  */
 
 public class CategoryActivity extends AppCompatActivity implements MultiModelAdapter.OnMultiModelItemClickListener {
-    public static final String EXTRA_DETAILS = "details";
+    public static final String EXTRA_STAR_WARS_OBJECT = "star wars object";
 
     String categoryName;
-    String hitName = "name";
     private RecyclerView mRecyclerView;
     private MultiModelAdapter mMultiModelAdapter;
     private ArrayList<StarWarsObject> mStarWarsObjectList;
@@ -136,11 +135,14 @@ public class CategoryActivity extends AppCompatActivity implements MultiModelAda
     @Override
     public void onItemClicked(int position) {
 
+
+
         //TODO switch based on class
         Intent categoryIntent = new Intent(this, DetailActivity.class);
         People clickedItem = (People)mStarWarsObjectList.get(position);
+        System.out.println(clickedItem.filmsUrls);
 
-        categoryIntent.putExtra(EXTRA_DETAILS, clickedItem.name);
+        categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
 
         startActivity(categoryIntent);
     }

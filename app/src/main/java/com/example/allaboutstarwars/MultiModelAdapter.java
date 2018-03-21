@@ -48,11 +48,9 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
 
         public TextTypeViewHolder(View itemView) {
             super(itemView);
+
+                textType = (TextView) itemView.findViewById(R.id.text_view_category);
             
-            textType = (TextView) itemView.findViewById(R.id.text_view_category);
-            textTypeName = (TextView) itemView.findViewById(R.id.text_view_detail_title);
-
-
             //This is often set in ionBindViewHolder but it takes less cost to put it here
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -75,7 +73,6 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
         totalTypes = mDataSet.size();
     }
 
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(mContext).inflate(R.layout.starwars_item, parent, false);
@@ -93,7 +90,11 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
         if (object instanceof Film){
             Film currentItem = (Film) mDataSet.get(position);
 
-            ((TextTypeViewHolder) holder).textType.setText(currentItem.title);
+            if(mContext instanceof CategoryActivity){
+                ((TextTypeViewHolder) holder).textType.setText(currentItem.title);
+            }else if (mContext instanceof DetailActivity){
+                ((TextTypeViewHolder) holder).textType.setText(currentItem.title);
+            }
 
         }else if(object instanceof People) {
             People currentItem = (People) mDataSet.get(position);
