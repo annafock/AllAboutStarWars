@@ -1,7 +1,6 @@
 package com.example.allaboutstarwars;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,13 +25,13 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private ArrayList<StarWarsObject> mDataSet;
     int totalTypes;
-    private OnItemClickListener mListener;
+    private OnMultiModelItemClickListener mListener;
 
-    public interface OnItemClickListener{
+    public interface OnMultiModelItemClickListener {
         void onItemClicked(int position);
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener){
+    public void setOnItemClickListener(OnMultiModelItemClickListener listener){
         mListener = listener;
     }
 
@@ -42,13 +41,27 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
     }
 
 
-    public static class TextTypeViewHolder extends RecyclerView.ViewHolder{
+    public class TextTypeViewHolder extends RecyclerView.ViewHolder{
 
         TextView textType;
 
         public TextTypeViewHolder(View itemView) {
             super(itemView);
             textType = (TextView) itemView.findViewById(R.id.text_view_category);
+
+            //This is often set in ionBindViewHolder but it takes less cost to put it here
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(mListener!=null){
+                        int position = getAdapterPosition();
+                        if(position!=RecyclerView.NO_POSITION){
+                            mListener.onItemClicked(position);
+                        }
+
+                    }
+                }
+            });
         }
     }
 

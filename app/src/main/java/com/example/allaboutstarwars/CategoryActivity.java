@@ -33,7 +33,7 @@ import static com.example.allaboutstarwars.MainActivity.EXTRA_CATEGORY;
  * Created by anna on 3/20/18.
  */
 
-public class CategoryActivity extends AppCompatActivity implements MultiModelAdapter.OnItemClickListener{
+public class CategoryActivity extends AppCompatActivity implements MultiModelAdapter.OnMultiModelItemClickListener {
     public static final String EXTRA_DETAILS = "details";
 
     String categoryName;
