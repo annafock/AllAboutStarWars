@@ -38,6 +38,7 @@ public class DetailActivity extends AppCompatActivity {
     private ArrayList<StarWarsObject> mStarWarsObjectList;
     private RequestQueue mRequestQueue;
     private ArrayList<String> filmUrl;
+    private Film film;
     Gson gson;
 
     @Override
@@ -63,41 +64,29 @@ public class DetailActivity extends AppCompatActivity {
 
         filmUrl = person.filmsUrls;
 
-//        for (int i = 0; i < filmUrl.size(); i++ ){
-//            String url = filmUrl.get(i);
-//
-//            parseJSON(url);
-//        }
-
         parseJSON();
-
-
 
 
     }
 
     private void parseJSON(){
-        String url = "https://swapi.co/api/films/3/";
 
         gson = new Gson();
+
+        String url;
+        for (int i = 0; i < filmUrl.size(); i++){
+        url = filmUrl.get(i);
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
 
-                        //JSONObject jsonObject = response.getJSONObject("");
-
                         String result = response.toString();
 
-                        Film film = gson.fromJson(result, Film.class);
+                        film = gson.fromJson(result, Film.class);
 
                         mStarWarsObjectList.add(film);
-
-
-                        mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, mStarWarsObjectList);
-                        mRecyclerViewFilms.setAdapter(mMultiModelAdapter);
-
 
                     }
                 }, new Response.ErrorListener() {
@@ -109,6 +98,10 @@ public class DetailActivity extends AppCompatActivity {
 
         mRequestQueue.add(request);
 
+        }
+
+        mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, mStarWarsObjectList);
+        mRecyclerViewFilms.setAdapter(mMultiModelAdapter);
     }
 
 }
