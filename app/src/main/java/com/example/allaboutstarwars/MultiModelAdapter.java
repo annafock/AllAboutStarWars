@@ -8,8 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
+import com.example.allaboutstarwars.Models.Planet;
+import com.example.allaboutstarwars.Models.Species;
 import com.example.allaboutstarwars.Models.StarWarsObject;
+import com.example.allaboutstarwars.Models.Starship;
+import com.example.allaboutstarwars.Models.Vehicle;
 
 import java.util.ArrayList;
 
@@ -64,16 +69,39 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
+
         StarWarsObject object = mDataSet.get(position);
 
-        if (object != null) {
-            switch (object.getClass().getName()) {
-                case "People":
-                    People currentItem = (People)mDataSet.get(position);
+        //TODO find a way to make this a switch case - instanceof can't be used with swich
+        if (object instanceof Film){
+            Film currentItem = (Film) mDataSet.get(position);
 
-                    ((TextTypeViewHolder) holder).textType.setText(currentItem.name);
-                    break;
-            }
+            ((TextTypeViewHolder) holder).textType.setText(currentItem.title);
+
+        }else if(object instanceof People) {
+            People currentItem = (People) mDataSet.get(position);
+
+            ((TextTypeViewHolder) holder).textType.setText(currentItem.name);
+        }else if(object instanceof Planet) {
+            Planet currentItem = (Planet) mDataSet.get(position);
+
+            ((TextTypeViewHolder) holder).textType.setText(currentItem.name);
+
+        }else if(object instanceof Species) {
+            Species currentItem = (Species) mDataSet.get(position);
+
+            ((TextTypeViewHolder) holder).textType.setText(currentItem.name);
+
+        }else if(object instanceof Starship) {
+            Starship currentItem = (Starship) mDataSet.get(position);
+
+            ((TextTypeViewHolder) holder).textType.setText(currentItem.name);
+
+        }else if(object instanceof Vehicle) {
+            Vehicle currentItem = (Vehicle) mDataSet.get(position);
+
+            ((TextTypeViewHolder) holder).textType.setText(currentItem.name);
+
         }
     }
 

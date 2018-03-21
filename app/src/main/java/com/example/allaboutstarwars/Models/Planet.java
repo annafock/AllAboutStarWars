@@ -3,6 +3,7 @@ package com.example.allaboutstarwars.Models;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**

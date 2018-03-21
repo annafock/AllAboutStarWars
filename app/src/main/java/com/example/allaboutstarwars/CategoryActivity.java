@@ -12,8 +12,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
+import com.example.allaboutstarwars.Models.Planet;
+import com.example.allaboutstarwars.Models.Species;
 import com.example.allaboutstarwars.Models.StarWarsObject;
+import com.example.allaboutstarwars.Models.Starship;
+import com.example.allaboutstarwars.Models.Vehicle;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -84,8 +89,38 @@ public class CategoryActivity extends AppCompatActivity implements MultiModelAda
                             for (int i = 0; i < jsonArray.length(); i++){
                                 String result = jsonArray.getJSONObject(i).toString();
 
-                                People people = gson.fromJson(result, People.class);
-                                mStarWarsObjectList.add(people);
+                                StarWarsObject starWarsObject = new StarWarsObject() {
+                                    @Override
+                                    public int hashCode() {
+                                        return super.hashCode();
+                                    }
+                                };
+
+                                switch(categoryName){
+                                    case "people":
+                                        starWarsObject = gson.fromJson(result, People.class);
+                                        break;
+                                    case "films":
+                                        starWarsObject = gson.fromJson(result, Film.class);
+                                        break;
+                                    case "planets":
+                                        starWarsObject = gson.fromJson(result, Planet.class);
+                                        break;
+                                    case "species":
+                                        starWarsObject = gson.fromJson(result, Species.class);
+                                        break;
+                                    case "starship":
+                                        starWarsObject = gson.fromJson(result, Starship.class);
+                                        break;
+                                    case "vehicles":
+                                        starWarsObject = gson.fromJson(result, Vehicle.class);
+                                        break;
+                                    default: break;
+                                }
+
+                                mStarWarsObjectList.add(starWarsObject);
+
+
                             }
 
                             mMultiModelAdapter = new MultiModelAdapter(CategoryActivity.this, mStarWarsObjectList);

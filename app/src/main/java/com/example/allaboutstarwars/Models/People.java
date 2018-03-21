@@ -4,6 +4,7 @@ import com.example.allaboutstarwars.StarWarsAdapter;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -11,6 +12,7 @@ import java.util.ArrayList;
  */
 
 public class People extends StarWarsObject {
+
     @SerializedName("name")
     public String name;
 
@@ -46,4 +48,6 @@ public class People extends StarWarsObject {
 
     @SerializedName("vehicles")
     public ArrayList<String> vehiclesUrls;
+
+
 }

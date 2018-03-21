@@ -3,6 +3,7 @@ package com.example.allaboutstarwars.Models;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -45,4 +46,5 @@ public class Species extends StarWarsObject implements Serializable {
 
     @SerializedName("films")
     public ArrayList<String> filmsUrls;
+
 }
