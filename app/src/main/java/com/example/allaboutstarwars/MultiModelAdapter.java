@@ -118,31 +118,6 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
         }
     }
 
-
-    public class MultiModelViewHolder extends RecyclerView.ViewHolder{
-        public TextView mTextViewCategory;
-
-
-        public MultiModelViewHolder(View itemView) {
-            super(itemView);
-            mTextViewCategory = itemView.findViewById(R.id.text_view_category);
-
-            //This is often set in ionBindViewHolder but it takes less cost to put it here
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(mListener!=null){
-                        int position = getAdapterPosition();
-                        if(position!=RecyclerView.NO_POSITION){
-                            mListener.onItemClicked(position);
-                        }
-
-                    }
-                }
-            });
-        }
-    }
-
     @Override
     public int getItemCount() {
         return mDataSet.size();
