@@ -36,18 +36,22 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
     }
 
     public MultiModelAdapter(Context context, ArrayList<StarWarsObject> dataSet){
+
         mContext = context;
         mDataSet = dataSet;
     }
 
-
     public class TextTypeViewHolder extends RecyclerView.ViewHolder{
 
-        TextView textType;
+        TextView textType, textTypeName;
+
 
         public TextTypeViewHolder(View itemView) {
             super(itemView);
+            
             textType = (TextView) itemView.findViewById(R.id.text_view_category);
+            textTypeName = (TextView) itemView.findViewById(R.id.text_view_detail_title);
+
 
             //This is often set in ionBindViewHolder but it takes less cost to put it here
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -75,8 +79,8 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(mContext).inflate(R.layout.starwars_item, parent, false);
+
         return new TextTypeViewHolder(v);
-        //TODO here we can put a switch case loop to load other type of holders
     }
 
     @Override
@@ -85,7 +89,7 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
 
         StarWarsObject object = mDataSet.get(position);
 
-        //TODO find a way to make this a switch case - instanceof can't be used with swich
+        //TODO find a way to make this a switch case - instanceof can't be used with switch
         if (object instanceof Film){
             Film currentItem = (Film) mDataSet.get(position);
 

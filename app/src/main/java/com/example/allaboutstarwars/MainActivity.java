@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements StarWarsAdapter.O
         setContentView(R.layout.activity_main);
 
 
-        mRecyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        mRecyclerView = (RecyclerView)findViewById(R.id.recycler_view_category);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 

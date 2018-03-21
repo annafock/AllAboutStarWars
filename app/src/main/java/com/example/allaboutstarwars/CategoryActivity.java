@@ -49,7 +49,7 @@ public class CategoryActivity extends AppCompatActivity implements MultiModelAda
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
 
-        mRecyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        mRecyclerView = (RecyclerView)findViewById(R.id.recycler_view_category);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -57,15 +57,6 @@ public class CategoryActivity extends AppCompatActivity implements MultiModelAda
 
         Intent intent = getIntent();
         categoryName = intent.getStringExtra(EXTRA_CATEGORY);
-
-//        //Switch loop to determine item for given category
-//        switch(categoryName){
-//            case "films": hitName = "title";
-//                break;
-//            default: break;
-//
-//        }
-
 
         mRequestQueue = Volley.newRequestQueue(this);
 
@@ -144,10 +135,12 @@ public class CategoryActivity extends AppCompatActivity implements MultiModelAda
 
     @Override
     public void onItemClicked(int position) {
-        Intent categoryIntent = new Intent(this, DetailActivity.class);
-        StarWarsObject clickedItem = mStarWarsObjectList.get(position);
 
-        //categoryIntent.putExtra(EXTRA_DETAILS, clickedItem.name);
+        //TODO switch based on class
+        Intent categoryIntent = new Intent(this, DetailActivity.class);
+        People clickedItem = (People)mStarWarsObjectList.get(position);
+
+        categoryIntent.putExtra(EXTRA_DETAILS, clickedItem.name);
 
         startActivity(categoryIntent);
     }

@@ -1,6 +1,6 @@
 <resources>
     <string id="text_view_category" name="category">category</string>
     <string id="image_view_detail" name="image">image</string>
-    <string id="text_view_detail_title" name="title">title</string>
+    <string id="text_view_detail_title" name="title">Name</string>
     <string id="text_view_detail" name="detail">detail</string>
 </resources>

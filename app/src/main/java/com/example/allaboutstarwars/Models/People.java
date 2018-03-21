@@ -49,5 +49,4 @@ public class People extends StarWarsObject {
     @SerializedName("vehicles")
     public ArrayList<String> vehiclesUrls;
 
-
 }
