@@ -45,10 +45,9 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //TODO switch based on class from intent
-        
+        StarWarsObject starWarsObject = (StarWarsObject) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
+        if(starWarsObject instanceof People){
 
-        People person = (People) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
 
         setContentView(R.layout.people);
 
@@ -57,18 +56,18 @@ public class DetailActivity extends AppCompatActivity {
         mRecyclerViewFilms.setLayoutManager(new LinearLayoutManager(this));
 
         textViewDetailTitle = findViewById(R.id.text_view_detail_title);
-        textViewDetailTitle.setText(person.name);
+        textViewDetailTitle.setText(((People) starWarsObject).name);
 
         mStarWarsObjectList = new ArrayList<>();
 
         mRequestQueue = Volley.newRequestQueue(this);
 
-        filmUrl = person.filmsUrls;
+        filmUrl = ((People) starWarsObject).filmsUrls;
 
         parseJSON();
 
 
-    }
+    }}
 
     private void parseJSON(){
 

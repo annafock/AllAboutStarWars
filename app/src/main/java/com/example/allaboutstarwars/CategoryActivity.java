@@ -39,6 +39,7 @@ public class CategoryActivity extends AppCompatActivity implements MultiModelAda
     String categoryName;
     private RecyclerView mRecyclerView;
     private MultiModelAdapter mMultiModelAdapter;
+    private StarWarsObject starWarsObject;
     private ArrayList<StarWarsObject> mStarWarsObjectList;
     private RequestQueue mRequestQueue;
     Gson gson;
@@ -78,13 +79,6 @@ public class CategoryActivity extends AppCompatActivity implements MultiModelAda
 
                             for (int i = 0; i < jsonArray.length(); i++){
                                 String result = jsonArray.getJSONObject(i).toString();
-
-                                StarWarsObject starWarsObject = new StarWarsObject() {
-                                    @Override
-                                    public int hashCode() {
-                                        return super.hashCode();
-                                    }
-                                };
 
                                 switch(categoryName){
                                     case "people":
@@ -139,8 +133,7 @@ public class CategoryActivity extends AppCompatActivity implements MultiModelAda
 
         //TODO switch based on class
         Intent categoryIntent = new Intent(this, DetailActivity.class);
-        People clickedItem = (People)mStarWarsObjectList.get(position);
-        System.out.println(clickedItem.filmsUrls);
+        StarWarsObject clickedItem = mStarWarsObjectList.get(position);
 
         categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
 
