@@ -83,43 +83,38 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-
         StarWarsObject object = mDataSet.get(position);
 
         //TODO find a way to make this a switch case - instanceof can't be used with switch
         if (object instanceof Film){
-            Film currentItem = (Film) mDataSet.get(position);
+            //Film currentItem = (Film) mDataSet.get(position);
 
-            if(mContext instanceof CategoryActivity){
-                ((TextTypeViewHolder) holder).textType.setText(currentItem.title);
-            }else if (mContext instanceof DetailActivity){
-                ((TextTypeViewHolder) holder).textType.setText(currentItem.title);
-            }
+            ((TextTypeViewHolder) holder).textType.setText(((Film) object).title);
 
         }else if(object instanceof People) {
-            People currentItem = (People) mDataSet.get(position);
+           // People currentItem = (People) mDataSet.get(position);
 
-            ((TextTypeViewHolder) holder).textType.setText(currentItem.name);
+            ((TextTypeViewHolder) holder).textType.setText(((People) object).name);
+
         }else if(object instanceof Planet) {
-            Planet currentItem = (Planet) mDataSet.get(position);
+            //Planet currentItem = (Planet) mDataSet.get(position);
 
-            ((TextTypeViewHolder) holder).textType.setText(currentItem.name);
+            ((TextTypeViewHolder) holder).textType.setText(((Planet) object).name);
 
         }else if(object instanceof Species) {
-            Species currentItem = (Species) mDataSet.get(position);
+            //Species currentItem = (Species) mDataSet.get(position);
 
-            ((TextTypeViewHolder) holder).textType.setText(currentItem.name);
+            ((TextTypeViewHolder) holder).textType.setText(((Species) object).name);
 
         }else if(object instanceof Starship) {
-            Starship currentItem = (Starship) mDataSet.get(position);
+            //Starship currentItem = (Starship) mDataSet.get(position);
 
-            ((TextTypeViewHolder) holder).textType.setText(currentItem.name);
+            ((TextTypeViewHolder) holder).textType.setText(((Starship) object).name);
 
         }else if(object instanceof Vehicle) {
-            Vehicle currentItem = (Vehicle) mDataSet.get(position);
+           // Vehicle currentItem = (Vehicle) mDataSet.get(position);
 
-            ((TextTypeViewHolder) holder).textType.setText(currentItem.name);
-
+            ((TextTypeViewHolder) holder).textType.setText(((Vehicle) object).name);
         }
     }
 

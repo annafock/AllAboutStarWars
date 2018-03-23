@@ -22,11 +22,11 @@ import com.example.allaboutstarwars.Models.Starship;
 import com.example.allaboutstarwars.Models.Vehicle;
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.example.allaboutstarwars.CategoryActivity.EXTRA_STAR_WARS_OBJECT;
 
@@ -39,8 +39,14 @@ public class DetailActivity extends AppCompatActivity {
     private StarWarsObject starWarsObject;
     private ArrayList<StarWarsObject> mStarWarsObjectList;
     private RequestQueue mRequestQueue;
-    private ArrayList<String> filmUrl;
+
     private Film film;
+    private People people;
+    private Planet planet;
+    private Species species;
+    private Starship starship;
+    private Vehicle vehicle;
+
     Gson gson;
 
     @Override
@@ -57,53 +63,105 @@ public class DetailActivity extends AppCompatActivity {
             setContentView(R.layout.people);
             setRecyclerView();
 
+            Map<Class, ArrayList<String>> map = new HashMap<>();
+            map.put(Film.class, ((People) starWarsObject).filmsUrls);
+            map.put(Species.class,((People) starWarsObject).speciesUrls );
+            map.put(Starship.class,((People) starWarsObject).starshipsUrls );
+            map.put(Vehicle.class,((People) starWarsObject).vehiclesUrls );
+
+            parseJSON(map);
+
             textViewDetailTitle = findViewById(R.id.text_view_detail_title);
             textViewDetailTitle.setText(((People) starWarsObject).name);
 
-            filmUrl = ((People) starWarsObject).filmsUrls;
-
-            parseJSON();
-
             mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, mStarWarsObjectList);
-            mRecyclerViewFilms.setAdapter(mMultiModelAdapter);
+
         }
     }
 
-    private void parseJSON(){
+    private void parseJSON(Map<Class, ArrayList<String>> map){
 
         gson = new Gson();
 
         String url;
-        for (int i = 0; i < filmUrl.size(); i++){
-            url = filmUrl.get(i);
 
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
+        for (final Map.Entry<Class,ArrayList<String>> entry: map.entrySet()){
+            final Class modelClass = entry.getKey();
+            System.out.println(modelClass.toString());
+            ArrayList<String> value = entry.getValue();
+            for (String urlString : value){
+                url = urlString;
+                System.out.println(url);
 
-                            String result = response.toString();
 
-                            film = gson.fromJson(result, Film.class);
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
 
-                            mStarWarsObjectList.add(film);
-                            mMultiModelAdapter.notifyDataSetChanged();
+                                String result = response.toString();
 
-                        }
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    error.printStackTrace();
-                }
-            });
+                                if (modelClass == Film.class){
 
-            mRequestQueue.add(request);
+                                    starWarsObject = gson.fromJson(result, Film.class);
+                                    mStarWarsObjectList.add((Film)starWarsObject);
+                                    mMultiModelAdapter.notifyDataSetChanged();
+                                    mRecyclerViewFilms.setAdapter(mMultiModelAdapter);
+
+                                } else if (modelClass == People.class){
+
+                                    starWarsObject = gson.fromJson(result, People.class);
+                                    mStarWarsObjectList.add(starWarsObject);
+                                    mMultiModelAdapter.notifyDataSetChanged();
+                                    mRecyclerViewPeople.setAdapter(mMultiModelAdapter);
+
+
+                                } else if (modelClass == Planet.class){
+
+                                    starWarsObject = gson.fromJson(result, Planet.class);
+                                    mStarWarsObjectList.add(starWarsObject);
+                                    mMultiModelAdapter.notifyDataSetChanged();
+                                    mRecyclerViewPlanet.setAdapter(mMultiModelAdapter);
+
+                                } else if (modelClass == Species.class){
+
+                                    starWarsObject = gson.fromJson(result, Species.class);
+                                    mStarWarsObjectList.add(starWarsObject);
+                                    mMultiModelAdapter.notifyDataSetChanged();
+                                    mRecyclerViewSpecies.setAdapter(mMultiModelAdapter);
+
+                                } else if (modelClass == Starship.class){
+
+                                    starWarsObject = gson.fromJson(result, Starship.class);
+                                    mStarWarsObjectList.add(starWarsObject);
+                                    mMultiModelAdapter.notifyDataSetChanged();
+                                    mRecyclerViewStarship.setAdapter(mMultiModelAdapter);
+
+                                }
+//                                else if (modelClass == Vehicle.class){
+//
+//                                    starWarsObject = gson.fromJson(result, Vehicle.class);
+//                                    mStarWarsObjectList.add(starWarsObject);
+//                                    mMultiModelAdapter.notifyDataSetChanged();
+//                                    mRecyclerViewVehicle.setAdapter(mMultiModelAdapter);
+//
+//                                }
+
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                });
+
+                mRequestQueue.add(request);
+
+            }
 
         }
-
     }
 
-    //TODO not if instance of class - but all this if the class is People
     public void setRecyclerView(){
 
         if(!(starWarsObject instanceof Film)) {

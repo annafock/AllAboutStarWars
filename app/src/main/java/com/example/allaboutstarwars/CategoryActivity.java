@@ -93,7 +93,7 @@ public class CategoryActivity extends AppCompatActivity implements MultiModelAda
                                     case "species":
                                         starWarsObject = gson.fromJson(result, Species.class);
                                         break;
-                                    case "starship":
+                                    case "starships":
                                         starWarsObject = gson.fromJson(result, Starship.class);
                                         break;
                                     case "vehicles":
