@@ -33,8 +33,10 @@ import static com.example.allaboutstarwars.CategoryActivity.EXTRA_STAR_WARS_OBJE
 public class DetailActivity extends AppCompatActivity {
     String personName;
     TextView textViewDetailTitle;
-    private RecyclerView mRecyclerViewFilms;
+    private RecyclerView mRecyclerViewFilms, mRecyclerViewSpecies, mRecyclerViewPeople,
+            mRecyclerViewPlanet, mRecyclerViewStarship, mRecyclerViewVehicle;
     private MultiModelAdapter mMultiModelAdapter;
+    private StarWarsObject starWarsObject;
     private ArrayList<StarWarsObject> mStarWarsObjectList;
     private RequestQueue mRequestQueue;
     private ArrayList<String> filmUrl;
@@ -49,12 +51,11 @@ public class DetailActivity extends AppCompatActivity {
 
         mRequestQueue = Volley.newRequestQueue(this);
 
-        StarWarsObject starWarsObject = (People) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
+        starWarsObject = (People) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
         if(starWarsObject instanceof People){
 
             setContentView(R.layout.people);
-
-            setRecyclerViewFilms();
+            setRecyclerView();
 
             textViewDetailTitle = findViewById(R.id.text_view_detail_title);
             textViewDetailTitle.setText(((People) starWarsObject).name);
@@ -102,10 +103,44 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
-    public void setRecyclerViewFilms(){
-        mRecyclerViewFilms = (RecyclerView)findViewById(R.id.recycler_view_films);
-        mRecyclerViewFilms.setHasFixedSize(true);
-        mRecyclerViewFilms.setLayoutManager(new LinearLayoutManager(this));
+    //TODO not if instance of class - but all this if the class is People
+    public void setRecyclerView(){
+
+        if(!(starWarsObject instanceof Film)) {
+            mRecyclerViewFilms = (RecyclerView) findViewById(R.id.recycler_view_films);
+            mRecyclerViewFilms.setHasFixedSize(true);
+            mRecyclerViewFilms.setLayoutManager(new LinearLayoutManager(this));
+        }
+
+        if(!(starWarsObject instanceof People)) {
+            mRecyclerViewPeople = (RecyclerView) findViewById(R.id.recycler_view_people);
+            mRecyclerViewPeople.setHasFixedSize(true);
+            mRecyclerViewPeople.setLayoutManager(new LinearLayoutManager(this));
+        }
+
+        if(!(starWarsObject instanceof Planet || (starWarsObject instanceof People)))  {
+            mRecyclerViewPlanet = (RecyclerView) findViewById(R.id.recycler_view_planets);
+            mRecyclerViewPlanet.setHasFixedSize(true);
+            mRecyclerViewPlanet.setLayoutManager(new LinearLayoutManager(this));
+        }
+
+        if(!(starWarsObject instanceof Species)) {
+            mRecyclerViewSpecies = (RecyclerView) findViewById(R.id.recycler_view_species);
+            mRecyclerViewSpecies.setHasFixedSize(true);
+            mRecyclerViewSpecies.setLayoutManager(new LinearLayoutManager(this));
+        }
+
+        if(!(starWarsObject instanceof Starship)) {
+            mRecyclerViewStarship = (RecyclerView) findViewById(R.id.recycler_view_starships);
+            mRecyclerViewStarship.setHasFixedSize(true);
+            mRecyclerViewStarship.setLayoutManager(new LinearLayoutManager(this));
+        }
+
+        if(!(starWarsObject instanceof Vehicle)) {
+            mRecyclerViewVehicle = (RecyclerView) findViewById(R.id.recycler_view_vehicles);
+            mRecyclerViewVehicle.setHasFixedSize(true);
+            mRecyclerViewVehicle.setLayoutManager(new LinearLayoutManager(this));
+        }
 
     }
 
