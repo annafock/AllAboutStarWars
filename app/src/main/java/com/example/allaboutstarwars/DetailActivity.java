@@ -46,6 +46,7 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //TODO switch based on class from intent
+        
 
         People person = (People) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
 
