@@ -101,6 +101,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, mStarWarsObjectList);
+        mMultiModelAdapter.notifyDataSetChanged();
         mRecyclerViewFilms.setAdapter(mMultiModelAdapter);
     }
 
