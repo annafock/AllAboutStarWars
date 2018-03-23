@@ -45,29 +45,28 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        StarWarsObject starWarsObject = (StarWarsObject) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
-        if(starWarsObject instanceof People){
-
-
-        setContentView(R.layout.people);
-
-        mRecyclerViewFilms = (RecyclerView)findViewById(R.id.recycler_view_films);
-        mRecyclerViewFilms.setHasFixedSize(true);
-        mRecyclerViewFilms.setLayoutManager(new LinearLayoutManager(this));
-
-        textViewDetailTitle = findViewById(R.id.text_view_detail_title);
-        textViewDetailTitle.setText(((People) starWarsObject).name);
-
         mStarWarsObjectList = new ArrayList<>();
 
         mRequestQueue = Volley.newRequestQueue(this);
 
-        filmUrl = ((People) starWarsObject).filmsUrls;
+        StarWarsObject starWarsObject = (People) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
+        if(starWarsObject instanceof People){
 
-        parseJSON();
+            setContentView(R.layout.people);
 
+            setRecyclerViewFilms();
 
-    }}
+            textViewDetailTitle = findViewById(R.id.text_view_detail_title);
+            textViewDetailTitle.setText(((People) starWarsObject).name);
+
+            filmUrl = ((People) starWarsObject).filmsUrls;
+
+            parseJSON();
+
+            mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, mStarWarsObjectList);
+            mRecyclerViewFilms.setAdapter(mMultiModelAdapter);
+        }
+    }
 
     private void parseJSON(){
 
@@ -75,34 +74,39 @@ public class DetailActivity extends AppCompatActivity {
 
         String url;
         for (int i = 0; i < filmUrl.size(); i++){
-        url = filmUrl.get(i);
+            url = filmUrl.get(i);
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
 
-                        String result = response.toString();
+                            String result = response.toString();
 
-                        film = gson.fromJson(result, Film.class);
+                            film = gson.fromJson(result, Film.class);
 
-                        mStarWarsObjectList.add(film);
+                            mStarWarsObjectList.add(film);
+                            mMultiModelAdapter.notifyDataSetChanged();
 
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                }
+            });
 
-        mRequestQueue.add(request);
+            mRequestQueue.add(request);
 
         }
 
-        mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, mStarWarsObjectList);
-        mMultiModelAdapter.notifyDataSetChanged();
-        mRecyclerViewFilms.setAdapter(mMultiModelAdapter);
+    }
+
+    public void setRecyclerViewFilms(){
+        mRecyclerViewFilms = (RecyclerView)findViewById(R.id.recycler_view_films);
+        mRecyclerViewFilms.setHasFixedSize(true);
+        mRecyclerViewFilms.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
 }
