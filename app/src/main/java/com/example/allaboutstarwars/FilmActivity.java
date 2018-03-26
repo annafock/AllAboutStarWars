@@ -30,7 +30,7 @@ public class FilmActivity extends DetailActivity implements MultiModelAdapter.On
 
         starWarsObject = (StarWarsObject) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
 
-        setContentView(R.layout.people);
+        setContentView(R.layout.film);
 
         Map<Class, ArrayList<String>> map = new HashMap<>();
         map.put(People.class, ((Film) starWarsObject).charactersUrls);
