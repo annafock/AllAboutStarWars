@@ -71,10 +71,22 @@ public class DetailActivity extends AppCompatActivity {
 
             parseJSON(map);
 
-            textViewDetailTitle = findViewById(R.id.text_view_detail_title);
-            textViewDetailTitle.setText(((People) starWarsObject).name);
+        } else if(starWarsObject instanceof Film ){
 
-            mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, mStarWarsObjectList);
+            setContentView(R.layout.film);
+            setRecyclerView();
+
+            Map<Class, ArrayList<String>> map = new HashMap<>();
+            map.put(People.class, ((Film) starWarsObject).charactersUrls);
+            map.put(Planet.class, ((Film) starWarsObject).planetsUrls);
+            map.put(Species.class,((Film) starWarsObject).speciesUrls );
+            map.put(Starship.class,((Film) starWarsObject).starshipsUrls );
+            map.put(Vehicle.class,((Film) starWarsObject).vehiclesUrls );
+
+            parseJSON(map);
+
+            textViewDetailTitle = findViewById(R.id.text_view_detail_title);
+            textViewDetailTitle.setText(((Film) starWarsObject).title);
 
         }
     }
@@ -106,9 +118,6 @@ public class DetailActivity extends AppCompatActivity {
                             public void onResponse(JSONObject response) {
 
                                 String result = response.toString();
-
-
-
 
                                 //TODO get this to sort right
                                 if (modelClass == Film.class){
@@ -181,7 +190,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         if(!(starWarsObject instanceof People)) {
-            mRecyclerViewPeople = (RecyclerView) findViewById(R.id.recycler_view_people);
+            mRecyclerViewPeople = (RecyclerView) findViewById(R.id.recycler_view_characters);
             mRecyclerViewPeople.setHasFixedSize(true);
             mRecyclerViewPeople.setLayoutManager(new LinearLayoutManager(this));
         }
