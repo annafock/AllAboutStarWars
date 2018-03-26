@@ -30,22 +30,20 @@ import java.util.Map;
 
 import static com.example.allaboutstarwars.CategoryActivity.EXTRA_STAR_WARS_OBJECT;
 
-public class DetailActivity extends AppCompatActivity {
-    String personName;
+public class DetailActivity extends AppCompatActivity implements MultiModelAdapter.OnMultiModelItemClickListener{
     TextView textViewDetailTitle;
     private RecyclerView mRecyclerViewFilms, mRecyclerViewSpecies, mRecyclerViewPeople,
             mRecyclerViewPlanet, mRecyclerViewStarship, mRecyclerViewVehicle;
     private MultiModelAdapter mMultiModelAdapter;
     private StarWarsObject starWarsObject;
     private ArrayList<StarWarsObject> mStarWarsObjectList;
+    final ArrayList<StarWarsObject> films = new ArrayList<>();
+    final ArrayList<StarWarsObject> people = new ArrayList<>();
+    final ArrayList<StarWarsObject> planets = new ArrayList<>();
+    final ArrayList<StarWarsObject> species = new ArrayList<>();
+    final ArrayList<StarWarsObject> starships = new ArrayList<>();
+    final ArrayList<StarWarsObject> vehicles = new ArrayList<>();
     private RequestQueue mRequestQueue;
-
-    private Film film;
-    private People people;
-    private Planet planet;
-    private Species species;
-    private Starship starship;
-    private Vehicle vehicle;
 
     Gson gson;
 
@@ -58,10 +56,11 @@ public class DetailActivity extends AppCompatActivity {
         mRequestQueue = Volley.newRequestQueue(this);
 
         starWarsObject = (StarWarsObject) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
+
         if(starWarsObject instanceof People){
 
             setContentView(R.layout.people);
-            setRecyclerView();
+            setRecyclerViewLayout();
 
             Map<Class, ArrayList<String>> map = new HashMap<>();
             map.put(Film.class, ((People) starWarsObject).filmsUrls);
@@ -74,7 +73,7 @@ public class DetailActivity extends AppCompatActivity {
         } else if(starWarsObject instanceof Film ){
 
             setContentView(R.layout.film);
-            setRecyclerView();
+            setRecyclerViewLayout();
 
             Map<Class, ArrayList<String>> map = new HashMap<>();
             map.put(People.class, ((Film) starWarsObject).charactersUrls);
@@ -94,12 +93,6 @@ public class DetailActivity extends AppCompatActivity {
     private void parseJSON(Map<Class, ArrayList<String>> map){
 
         gson = new Gson();
-        final ArrayList<StarWarsObject> films = new ArrayList<>();
-        final ArrayList<StarWarsObject> people = new ArrayList<>();
-        final ArrayList<StarWarsObject> planets = new ArrayList<>();
-        final ArrayList<StarWarsObject> species = new ArrayList<>();
-        final ArrayList<StarWarsObject> starships = new ArrayList<>();
-        final ArrayList<StarWarsObject> vehicles = new ArrayList<>();
 
         String url;
 
@@ -119,54 +112,42 @@ public class DetailActivity extends AppCompatActivity {
 
                                 String result = response.toString();
 
-                                //TODO get this to sort right
+                                // Parse results and populates each recyclerview
                                 if (modelClass == Film.class){
 
-                                    starWarsObject = gson.fromJson(result, Film.class);
-                                    films.add((Film)starWarsObject);
-                                    mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, films);
+                                    populateRecyclerView(result, films, Film.class);
                                     mRecyclerViewFilms.setAdapter(mMultiModelAdapter);
 
                                 } else if (modelClass == People.class){
 
-                                    starWarsObject = gson.fromJson(result, People.class);
-                                    people.add(starWarsObject);
-                                    mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, people);
+                                    populateRecyclerView(result, people, People.class);
                                     mRecyclerViewPeople.setAdapter(mMultiModelAdapter);
-
 
                                 } else if (modelClass == Planet.class){
 
-                                    starWarsObject = gson.fromJson(result, Planet.class);
-                                    planets.add(starWarsObject);
-                                    mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, planets);
+                                    populateRecyclerView(result, planets, Planet.class);
                                     mRecyclerViewPlanet.setAdapter(mMultiModelAdapter);
 
                                 } else if (modelClass == Species.class){
 
-                                    starWarsObject = gson.fromJson(result, Species.class);
-                                    species.add(starWarsObject);
-                                    mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, species);
+                                    populateRecyclerView(result, species, Species.class);
                                     mRecyclerViewSpecies.setAdapter(mMultiModelAdapter);
 
                                 } else if (modelClass == Starship.class){
 
-                                    starWarsObject = gson.fromJson(result, Starship.class);
-                                    starships.add(starWarsObject);
-                                    mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, starships);
+                                    populateRecyclerView(result, starships, Starship.class);
                                     mRecyclerViewStarship.setAdapter(mMultiModelAdapter);
 
                                 }
                                 else if (modelClass == Vehicle.class){
 
-                                    starWarsObject = gson.fromJson(result, Vehicle.class);
-                                    vehicles.add(starWarsObject);
-                                    mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, vehicles);
+                                    populateRecyclerView(result, vehicles, Vehicle.class);
                                     mRecyclerViewVehicle.setAdapter(mMultiModelAdapter);
 
                                 }
 
                             }
+
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -181,7 +162,7 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
-    public void setRecyclerView(){
+    public void setRecyclerViewLayout(){
 
         if(!(starWarsObject instanceof Film)) {
             mRecyclerViewFilms = (RecyclerView) findViewById(R.id.recycler_view_films);
@@ -219,6 +200,28 @@ public class DetailActivity extends AppCompatActivity {
             mRecyclerViewVehicle.setLayoutManager(new LinearLayoutManager(this));
         }
 
+    }
+
+    public void populateRecyclerView(String requestResult, ArrayList<StarWarsObject> starWarsObjectList, Class modelClass){
+        starWarsObject = (StarWarsObject)gson.fromJson(requestResult, modelClass);
+        starWarsObjectList.add(starWarsObject);
+        mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, starWarsObjectList);
+
+        mMultiModelAdapter.setOnItemClickListener(DetailActivity.this);
+
+    }
+
+    @Override
+    public void onItemClicked(int position) {
+
+        System.out.println("clicked");
+        //TODO switch based on class
+        Intent categoryIntent = new Intent(this, DetailActivity.class);
+        StarWarsObject clickedItemFilm = (Film) films.get(position);
+
+        categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItemFilm);
+
+        startActivity(categoryIntent);
     }
 
 }
