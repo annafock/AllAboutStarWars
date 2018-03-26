@@ -26,6 +26,28 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
     private ArrayList<StarWarsObject> mDataSet;
     int totalTypes;
     private OnMultiModelItemClickListener mListener;
+    StarWarsType type;
+
+    public enum StarWarsType {
+        FILM("film", 0),
+        PEOPLE("people", 1),
+        PLANET("planet", 2),
+        SPECIES("species", 3),
+        STARSHIP("starship", 4),
+        VEHICLE("vehicle", 5);
+
+        private String stringValue;
+        private int intValue;
+        private StarWarsType(String toString, int value) {
+            stringValue = toString;
+            intValue = value;
+        }
+
+        @Override
+        public String toString() {
+            return stringValue;
+        }
+    }
 
     public interface OnMultiModelItemClickListener {
         void onItemClicked(int position);
@@ -49,8 +71,8 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
         public TextTypeViewHolder(View itemView) {
             super(itemView);
 
-                textType = (TextView) itemView.findViewById(R.id.text_view_category);
-            
+            textType = (TextView) itemView.findViewById(R.id.text_view_category);
+
             //This is often set in ionBindViewHolder but it takes less cost to put it here
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -65,6 +87,7 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
                 }
             });
         }
+
     }
 
     public MultiModelAdapter(ArrayList<StarWarsObject>data, Context context) {
@@ -89,7 +112,9 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
         if (object instanceof Film){
 
             ((TextTypeViewHolder) holder).textType.setText(((Film) object).title);
-            ((TextTypeViewHolder) holder).textType.setTag(object);
+            type = StarWarsType.FILM;
+            //set the enum instead of object here
+            ((TextTypeViewHolder) holder).textType.setTag(type);
 
         }else if(object instanceof People) {
 
@@ -116,5 +141,11 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return mDataSet.size();
+    }
+
+    public String getItemType(){
+
+    return type.toString();
+
     }
 }

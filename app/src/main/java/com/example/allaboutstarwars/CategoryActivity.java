@@ -132,10 +132,14 @@ public class CategoryActivity extends AppCompatActivity implements MultiModelAda
 
 
         //TODO switch based on class
-        Intent categoryIntent = new Intent(this, DetailActivity.class);
-        StarWarsObject clickedItem = (StarWarsObject) mStarWarsObjectList.get(position);
 
-        categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+        StarWarsObject clickedItem = (StarWarsObject) mStarWarsObjectList.get(position);
+        Intent categoryIntent = new Intent();
+
+        if (clickedItem instanceof People){
+            categoryIntent = new Intent(this, PeopleActivity.class);
+            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+        }
 
         startActivity(categoryIntent);
     }
