@@ -1,5 +1,6 @@
 package com.example.allaboutstarwars;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +23,7 @@ import com.example.allaboutstarwars.Models.Vehicle;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +34,7 @@ import static com.example.allaboutstarwars.CategoryActivity.EXTRA_STAR_WARS_OBJE
 public abstract class DetailActivity extends AppCompatActivity implements MultiModelAdapter.OnMultiModelItemClickListener{
     private RecyclerView mRecyclerViewFilms, mRecyclerViewSpecies, mRecyclerViewPeople,
             mRecyclerViewPlanet, mRecyclerViewStarship, mRecyclerViewVehicle;
-    private MultiModelAdapter mMultiModelAdapter;
+    protected MultiModelAdapter mMultiModelAdapter;
     private StarWarsObject starWarsObject;
     final ArrayList<StarWarsObject> films = new ArrayList<>();
     final ArrayList<StarWarsObject> people = new ArrayList<>();
@@ -50,9 +52,6 @@ public abstract class DetailActivity extends AppCompatActivity implements MultiM
 
         mRequestQueue = Volley.newRequestQueue(this);
 
-        Map<Class, ArrayList<String>> map = new HashMap<>();
-
-        parseJSON(map);
     }
 
     public void setRecyclerViewLayout(StarWarsObject starWarsObject){
@@ -107,8 +106,6 @@ public abstract class DetailActivity extends AppCompatActivity implements MultiM
             ArrayList<String> value = entry.getValue();
             for (String urlString : value){
                 url = urlString;
-                System.out.println(url);
-
 
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                         new Response.Listener<JSONObject>() {
@@ -119,7 +116,7 @@ public abstract class DetailActivity extends AppCompatActivity implements MultiM
 
                                 // Parse results and populate each recyclerview
                                 if (modelClass == Film.class){
-
+                                    System.out.println("Films " + modelClass);
                                     populateRecyclerView(result, films, Film.class);
                                     mRecyclerViewFilms.setAdapter(mMultiModelAdapter);
 
@@ -134,17 +131,16 @@ public abstract class DetailActivity extends AppCompatActivity implements MultiM
                                     mRecyclerViewPlanet.setAdapter(mMultiModelAdapter);
 
                                 } else if (modelClass == Species.class){
-
+                                    System.out.println("Species " + modelClass);
                                     populateRecyclerView(result, species, Species.class);
                                     mRecyclerViewSpecies.setAdapter(mMultiModelAdapter);
 
                                 } else if (modelClass == Starship.class){
-
+                                    System.out.println("Starship " + modelClass);
                                     populateRecyclerView(result, starships, Starship.class);
                                     mRecyclerViewStarship.setAdapter(mMultiModelAdapter);
 
                                 } else if (modelClass == Vehicle.class){
-
                                     populateRecyclerView(result, vehicles, Vehicle.class);
                                     mRecyclerViewVehicle.setAdapter(mMultiModelAdapter);
 
@@ -179,9 +175,24 @@ public abstract class DetailActivity extends AppCompatActivity implements MultiM
 
     @Override
     public void onItemClicked(int position) {
-
-
-
+//
+//        //this will return an item from an enum
+//        String type = mMultiModelAdapter.getItemType();
+//
+//        Intent categoryIntent = new Intent();
+//
+//        //Based on what enum type, open different activites
+//        if (type == MultiModelAdapter.StarWarsType.FILM.toString()){
+//            StarWarsObject clickedItem = films.get(position);
+//            categoryIntent = new Intent(this, FilmActivity.class);
+//            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+//        } else if (type == MultiModelAdapter.StarWarsType.PEOPLE.toString()){
+//            StarWarsObject clickedItem = people.get(position);
+//            categoryIntent = new Intent(this, PeopleActivity.class);
+//            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+//        }
+//
+//        startActivity(categoryIntent);
     }
 
 }

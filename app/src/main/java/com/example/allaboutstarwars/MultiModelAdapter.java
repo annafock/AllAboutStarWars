@@ -119,22 +119,32 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
         }else if(object instanceof People) {
 
             ((TextTypeViewHolder) holder).textType.setText(((People) object).name);
+            type = StarWarsType.PEOPLE;
+            ((TextTypeViewHolder) holder).textType.setTag(type);
 
         }else if(object instanceof Planet) {
 
             ((TextTypeViewHolder) holder).textType.setText(((Planet) object).name);
+            type = StarWarsType.PLANET;
+            ((TextTypeViewHolder) holder).textType.setTag(type);
 
         }else if(object instanceof Species) {
 
             ((TextTypeViewHolder) holder).textType.setText(((Species) object).name);
+            type = StarWarsType.SPECIES;
+            ((TextTypeViewHolder) holder).textType.setTag(type);
 
         }else if(object instanceof Starship) {
 
             ((TextTypeViewHolder) holder).textType.setText(((Starship) object).name);
+            type = StarWarsType.STARSHIP;
+            ((TextTypeViewHolder) holder).textType.setTag(type);
 
         }else if(object instanceof Vehicle) {
 
             ((TextTypeViewHolder) holder).textType.setText(((Vehicle) object).name);
+            type = StarWarsType.VEHICLE;
+            ((TextTypeViewHolder) holder).textType.setTag(type);
         }
     }
 

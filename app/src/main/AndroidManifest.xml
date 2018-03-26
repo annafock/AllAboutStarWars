@@ -27,8 +27,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".DetailActivity"></activity>
         <activity android:name=".PeopleActivity"></activity>
+        <activity android:name=".FilmActivity"></activity>
     </application>
 
 </manifest>

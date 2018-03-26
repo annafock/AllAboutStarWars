@@ -2,4 +2,8 @@
 <resources>
     <item name="recycler_view_people" type="id">People</item>
     <item name="recycler_view_planets" type="id">Planets</item>
+    <item name="recycler_view_characters" type="id">Characters</item>
+    <item name="recycler_view_films" type="id">Films</item>
+    <item name="recycler_view_species" type="id">Species</item>
+    <item name="recycler_view_vehicles" type="id">Vehicles</item>
 </resources>

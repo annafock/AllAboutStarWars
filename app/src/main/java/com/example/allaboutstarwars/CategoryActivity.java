@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -38,6 +39,7 @@ public class CategoryActivity extends AppCompatActivity implements MultiModelAda
 
     String categoryName;
     private RecyclerView mRecyclerView;
+    private TextView mTextViewTitle;
     private MultiModelAdapter mMultiModelAdapter;
     private StarWarsObject starWarsObject;
     private ArrayList<StarWarsObject> mStarWarsObjectList;
@@ -57,6 +59,9 @@ public class CategoryActivity extends AppCompatActivity implements MultiModelAda
 
         Intent intent = getIntent();
         categoryName = intent.getStringExtra(EXTRA_CATEGORY);
+
+        mTextViewTitle = (TextView) findViewById(R.id.text_view_category_title);
+        mTextViewTitle.setText(categoryName);
 
         mRequestQueue = Volley.newRequestQueue(this);
 
@@ -139,6 +144,10 @@ public class CategoryActivity extends AppCompatActivity implements MultiModelAda
         if (clickedItem instanceof People){
             categoryIntent = new Intent(this, PeopleActivity.class);
             categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+        } else if (clickedItem instanceof Film){
+            categoryIntent = new Intent(this, FilmActivity.class);
+            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+
         }
 
         startActivity(categoryIntent);
