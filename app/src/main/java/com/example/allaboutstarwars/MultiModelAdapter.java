@@ -89,6 +89,7 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
         if (object instanceof Film){
 
             ((TextTypeViewHolder) holder).textType.setText(((Film) object).title);
+            ((TextTypeViewHolder) holder).textType.setTag(object);
 
         }else if(object instanceof People) {
 

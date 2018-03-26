@@ -90,78 +90,6 @@ public class DetailActivity extends AppCompatActivity implements MultiModelAdapt
         }
     }
 
-    private void parseJSON(Map<Class, ArrayList<String>> map){
-
-        gson = new Gson();
-
-        String url;
-
-        for (final Map.Entry<Class,ArrayList<String>> entry: map.entrySet()){
-            final Class modelClass = entry.getKey();
-            System.out.println(modelClass.toString());
-            ArrayList<String> value = entry.getValue();
-            for (String urlString : value){
-                url = urlString;
-                System.out.println(url);
-
-
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-
-                                String result = response.toString();
-
-                                // Parse results and populates each recyclerview
-                                if (modelClass == Film.class){
-
-                                    populateRecyclerView(result, films, Film.class);
-                                    mRecyclerViewFilms.setAdapter(mMultiModelAdapter);
-
-                                } else if (modelClass == People.class){
-
-                                    populateRecyclerView(result, people, People.class);
-                                    mRecyclerViewPeople.setAdapter(mMultiModelAdapter);
-
-                                } else if (modelClass == Planet.class){
-
-                                    populateRecyclerView(result, planets, Planet.class);
-                                    mRecyclerViewPlanet.setAdapter(mMultiModelAdapter);
-
-                                } else if (modelClass == Species.class){
-
-                                    populateRecyclerView(result, species, Species.class);
-                                    mRecyclerViewSpecies.setAdapter(mMultiModelAdapter);
-
-                                } else if (modelClass == Starship.class){
-
-                                    populateRecyclerView(result, starships, Starship.class);
-                                    mRecyclerViewStarship.setAdapter(mMultiModelAdapter);
-
-                                }
-                                else if (modelClass == Vehicle.class){
-
-                                    populateRecyclerView(result, vehicles, Vehicle.class);
-                                    mRecyclerViewVehicle.setAdapter(mMultiModelAdapter);
-
-                                }
-
-                            }
-
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                    }
-                });
-
-                mRequestQueue.add(request);
-
-            }
-
-        }
-    }
-
     public void setRecyclerViewLayout(){
 
         if(!(starWarsObject instanceof Film)) {
@@ -202,9 +130,82 @@ public class DetailActivity extends AppCompatActivity implements MultiModelAdapt
 
     }
 
+    private void parseJSON(Map<Class, ArrayList<String>> map){
+
+        gson = new Gson();
+
+        String url;
+
+        for (final Map.Entry<Class,ArrayList<String>> entry: map.entrySet()){
+            final Class modelClass = entry.getKey();
+            System.out.println(modelClass.toString());
+            ArrayList<String> value = entry.getValue();
+            for (String urlString : value){
+                url = urlString;
+                System.out.println(url);
+
+
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+
+                                String result = response.toString();
+
+                                // Parse results and populate each recyclerview
+                                if (modelClass == Film.class){
+
+                                    populateRecyclerView(result, films, Film.class);
+                                    mRecyclerViewFilms.setAdapter(mMultiModelAdapter);
+
+                                } else if (modelClass == People.class){
+
+                                    populateRecyclerView(result, people, People.class);
+                                    mRecyclerViewPeople.setAdapter(mMultiModelAdapter);
+
+                                } else if (modelClass == Planet.class){
+
+                                    populateRecyclerView(result, planets, Planet.class);
+                                    mRecyclerViewPlanet.setAdapter(mMultiModelAdapter);
+
+                                } else if (modelClass == Species.class){
+
+                                    populateRecyclerView(result, species, Species.class);
+                                    mRecyclerViewSpecies.setAdapter(mMultiModelAdapter);
+
+                                } else if (modelClass == Starship.class){
+
+                                    populateRecyclerView(result, starships, Starship.class);
+                                    mRecyclerViewStarship.setAdapter(mMultiModelAdapter);
+
+                                } else if (modelClass == Vehicle.class){
+
+                                    populateRecyclerView(result, vehicles, Vehicle.class);
+                                    mRecyclerViewVehicle.setAdapter(mMultiModelAdapter);
+
+                                }
+                            }
+
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                });
+
+                mRequestQueue.add(request);
+
+            }
+
+        }
+    }
+
     public void populateRecyclerView(String requestResult, ArrayList<StarWarsObject> starWarsObjectList, Class modelClass){
+        //Parse result and create star wars object of different type
         starWarsObject = (StarWarsObject)gson.fromJson(requestResult, modelClass);
+
         starWarsObjectList.add(starWarsObject);
+        //mStarWarsObjectList.add(starWarsObject);
         mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, starWarsObjectList);
 
         mMultiModelAdapter.setOnItemClickListener(DetailActivity.this);
@@ -214,14 +215,50 @@ public class DetailActivity extends AppCompatActivity implements MultiModelAdapt
     @Override
     public void onItemClicked(int position) {
 
-        System.out.println("clicked");
         //TODO switch based on class
         Intent categoryIntent = new Intent(this, DetailActivity.class);
-        StarWarsObject clickedItemFilm = (Film) films.get(position);
 
-        categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItemFilm);
+
+
+       StarWarsObject clickedItem = mStarWarsObjectList.get(position);
+
+        StarWarsObject clickedItemFilm = (Film) films.get(position);
+        
+//        StarWarsObject clickedItemPeople = (People) people.get(position);
+//        StarWarsObject clickedItemPlanet = (Planet) planets.get(position);
+//        StarWarsObject clickedItemSpecies = (Species) species.get(position);
+//        StarWarsObject clickedItemStarship = (Starship) starships.get(position);
+//        StarWarsObject clickedItemVehicle = (Vehicle) vehicles.get(position);
+
+//        if (clickedItemFilm instanceof Film){
+//
+//            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItemFilm);
+//
+//        } else if (clickedItemPeople instanceof People){
+//
+//            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItemPeople);
+//
+//        }else if (clickedItemPlanet instanceof Planet){
+//
+//            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItemPlanet);
+//
+//        }else if (clickedItemSpecies instanceof Species){
+//
+//            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItemSpecies);
+//
+//        }else if (clickedItemStarship instanceof Starship){
+//
+//            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItemStarship);
+//
+//        }else if (clickedItemVehicle instanceof Vehicle){
+//
+//            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItemVehicle);
+//
+//        }
 
         startActivity(categoryIntent);
+
+
     }
 
 }
