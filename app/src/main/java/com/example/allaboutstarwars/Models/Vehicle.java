@@ -25,7 +25,7 @@ public class Vehicle extends StarWarsObject implements Serializable{
     @SerializedName("cost_in_credits")
     public String costInCredits;
 
-    @SerializedName("name")
+    @SerializedName("length")
     public String length;
 
     @SerializedName("crew")

@@ -87,32 +87,26 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
 
         //TODO find a way to make this a switch case - instanceof can't be used with switch
         if (object instanceof Film){
-            //Film currentItem = (Film) mDataSet.get(position);
 
             ((TextTypeViewHolder) holder).textType.setText(((Film) object).title);
 
         }else if(object instanceof People) {
-           // People currentItem = (People) mDataSet.get(position);
 
             ((TextTypeViewHolder) holder).textType.setText(((People) object).name);
 
         }else if(object instanceof Planet) {
-            //Planet currentItem = (Planet) mDataSet.get(position);
 
             ((TextTypeViewHolder) holder).textType.setText(((Planet) object).name);
 
         }else if(object instanceof Species) {
-            //Species currentItem = (Species) mDataSet.get(position);
 
             ((TextTypeViewHolder) holder).textType.setText(((Species) object).name);
 
         }else if(object instanceof Starship) {
-            //Starship currentItem = (Starship) mDataSet.get(position);
 
             ((TextTypeViewHolder) holder).textType.setText(((Starship) object).name);
 
         }else if(object instanceof Vehicle) {
-           // Vehicle currentItem = (Vehicle) mDataSet.get(position);
 
             ((TextTypeViewHolder) holder).textType.setText(((Vehicle) object).name);
         }

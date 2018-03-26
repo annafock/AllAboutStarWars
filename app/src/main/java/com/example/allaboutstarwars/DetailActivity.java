@@ -82,6 +82,12 @@ public class DetailActivity extends AppCompatActivity {
     private void parseJSON(Map<Class, ArrayList<String>> map){
 
         gson = new Gson();
+        final ArrayList<StarWarsObject> films = new ArrayList<>();
+        final ArrayList<StarWarsObject> people = new ArrayList<>();
+        final ArrayList<StarWarsObject> planets = new ArrayList<>();
+        final ArrayList<StarWarsObject> species = new ArrayList<>();
+        final ArrayList<StarWarsObject> starships = new ArrayList<>();
+        final ArrayList<StarWarsObject> vehicles = new ArrayList<>();
 
         String url;
 
@@ -101,51 +107,55 @@ public class DetailActivity extends AppCompatActivity {
 
                                 String result = response.toString();
 
+
+
+
+                                //TODO get this to sort right
                                 if (modelClass == Film.class){
 
                                     starWarsObject = gson.fromJson(result, Film.class);
-                                    mStarWarsObjectList.add((Film)starWarsObject);
-                                    mMultiModelAdapter.notifyDataSetChanged();
+                                    films.add((Film)starWarsObject);
+                                    mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, films);
                                     mRecyclerViewFilms.setAdapter(mMultiModelAdapter);
 
                                 } else if (modelClass == People.class){
 
                                     starWarsObject = gson.fromJson(result, People.class);
-                                    mStarWarsObjectList.add(starWarsObject);
-                                    mMultiModelAdapter.notifyDataSetChanged();
+                                    people.add(starWarsObject);
+                                    mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, people);
                                     mRecyclerViewPeople.setAdapter(mMultiModelAdapter);
 
 
                                 } else if (modelClass == Planet.class){
 
                                     starWarsObject = gson.fromJson(result, Planet.class);
-                                    mStarWarsObjectList.add(starWarsObject);
-                                    mMultiModelAdapter.notifyDataSetChanged();
+                                    planets.add(starWarsObject);
+                                    mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, planets);
                                     mRecyclerViewPlanet.setAdapter(mMultiModelAdapter);
 
                                 } else if (modelClass == Species.class){
 
                                     starWarsObject = gson.fromJson(result, Species.class);
-                                    mStarWarsObjectList.add(starWarsObject);
-                                    mMultiModelAdapter.notifyDataSetChanged();
+                                    species.add(starWarsObject);
+                                    mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, species);
                                     mRecyclerViewSpecies.setAdapter(mMultiModelAdapter);
 
                                 } else if (modelClass == Starship.class){
 
                                     starWarsObject = gson.fromJson(result, Starship.class);
-                                    mStarWarsObjectList.add(starWarsObject);
-                                    mMultiModelAdapter.notifyDataSetChanged();
+                                    starships.add(starWarsObject);
+                                    mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, starships);
                                     mRecyclerViewStarship.setAdapter(mMultiModelAdapter);
 
                                 }
-//                                else if (modelClass == Vehicle.class){
-//
-//                                    starWarsObject = gson.fromJson(result, Vehicle.class);
-//                                    mStarWarsObjectList.add(starWarsObject);
-//                                    mMultiModelAdapter.notifyDataSetChanged();
-//                                    mRecyclerViewVehicle.setAdapter(mMultiModelAdapter);
-//
-//                                }
+                                else if (modelClass == Vehicle.class){
+
+                                    starWarsObject = gson.fromJson(result, Vehicle.class);
+                                    vehicles.add(starWarsObject);
+                                    mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, vehicles);
+                                    mRecyclerViewVehicle.setAdapter(mMultiModelAdapter);
+
+                                }
 
                             }
                         }, new Response.ErrorListener() {
