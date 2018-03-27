@@ -35,6 +35,8 @@ public abstract class DetailActivity extends AppCompatActivity implements MultiM
     private RecyclerView mRecyclerViewFilms, mRecyclerViewSpecies, mRecyclerViewPeople,
             mRecyclerViewPlanet, mRecyclerViewStarship, mRecyclerViewVehicle;
     protected MultiModelAdapter mMultiModelAdapter;
+    protected FilmAdapter mFilmAdapter;
+    protected PeopleAdapter mPeopleAdapter;
     private StarWarsObject starWarsObject;
     final ArrayList<StarWarsObject> films = new ArrayList<>();
     final ArrayList<StarWarsObject> people = new ArrayList<>();
@@ -95,6 +97,7 @@ public abstract class DetailActivity extends AppCompatActivity implements MultiM
     }
 
     protected void parseJSON(Map<Class, ArrayList<String>> map){
+        final ArrayList<StarWarsObject> starWarsObjectList = new ArrayList<>();
 
         gson = new Gson();
 
@@ -116,49 +119,62 @@ public abstract class DetailActivity extends AppCompatActivity implements MultiM
 
                                 // Parse results and populate each recyclerview
                                 if (modelClass == Film.class){
-                                    System.out.println("Films " + modelClass);
-                                    populateRecyclerView(result, films, Film.class);
-                                    mRecyclerViewFilms.setAdapter(mMultiModelAdapter);
 
-                                } else if (modelClass == People.class){
+                                    starWarsObject = (StarWarsObject)gson.fromJson(result, modelClass);
 
-                                    populateRecyclerView(result, people, People.class);
-                                    mRecyclerViewPeople.setAdapter(mMultiModelAdapter);
+                                    films.add(starWarsObject);
 
-                                } else if (modelClass == Planet.class){
+                                    mFilmAdapter = new FilmAdapter(DetailActivity.this, films);
 
-                                    populateRecyclerView(result, planets, Planet.class);
-                                    mRecyclerViewPlanet.setAdapter(mMultiModelAdapter);
-
-                                } else if (modelClass == Species.class){
-                                    System.out.println("Species " + modelClass);
-                                    populateRecyclerView(result, species, Species.class);
-                                    mRecyclerViewSpecies.setAdapter(mMultiModelAdapter);
-
-                                } else if (modelClass == Starship.class){
-                                    System.out.println("Starship " + modelClass);
-                                    populateRecyclerView(result, starships, Starship.class);
-                                    mRecyclerViewStarship.setAdapter(mMultiModelAdapter);
-
-                                } else if (modelClass == Vehicle.class){
-                                    populateRecyclerView(result, vehicles, Vehicle.class);
-                                    mRecyclerViewVehicle.setAdapter(mMultiModelAdapter);
+                                    mRecyclerViewFilms.setAdapter(mFilmAdapter);
 
                                 }
+                                else if (modelClass == People.class){
+                                    starWarsObject = (StarWarsObject)gson.fromJson(result, modelClass);
+
+                                    people.add(starWarsObject);
+                                    mPeopleAdapter = new PeopleAdapter(DetailActivity.this, people);
+
+                                    mRecyclerViewPeople.setAdapter(mPeopleAdapter);
+
+                                }
+//                                else if (modelClass == Planet.class){
+//
+//                                    populateRecyclerView(result, planets, Planet.class);
+//                                    mRecyclerViewPlanet.setAdapter(mMultiModelAdapter);
+//
+//                                } else if (modelClass == Species.class){
+//                                    System.out.println("Species " + modelClass);
+//                                    populateRecyclerView(result, species, Species.class);
+//                                    mRecyclerViewSpecies.setAdapter(mMultiModelAdapter);
+//
+//                                } else if (modelClass == Starship.class){
+//                                    System.out.println("Starship " + modelClass);
+//                                    populateRecyclerView(result, starships, Starship.class);
+//                                    mRecyclerViewStarship.setAdapter(mMultiModelAdapter);
+//
+//                                } else if (modelClass == Vehicle.class){
+//                                    populateRecyclerView(result, vehicles, Vehicle.class);
+//                                    mRecyclerViewVehicle.setAdapter(mMultiModelAdapter);
+//
+//                                }
+
                             }
 
-                        }, new Response.ErrorListener() {
+                        }
+                        , new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         error.printStackTrace();
                     }
                 });
 
+
                 mRequestQueue.add(request);
 
             }
-
         }
+
     }
 
     public void populateRecyclerView(String requestResult, ArrayList<StarWarsObject> starWarsObjectList, Class modelClass){
@@ -173,27 +189,29 @@ public abstract class DetailActivity extends AppCompatActivity implements MultiM
 
     }
 
-    @Override
-    public void onItemClicked(int position) {
-        //this will return an item from an enum
-        String type = mMultiModelAdapter.getItemType();
-        System.out.println("type " + type);
-        System.out.println("films " + films);
-
-        //Open activity based on enum
-        if (type == MultiModelAdapter.StarWarsType.FILM.toString()){
-            StarWarsObject clickedItem = films.get(position);
-            Intent filmIntent = new Intent(this, FilmActivity.class);
-            filmIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-            startActivity(filmIntent);
-
-        }else if (type == MultiModelAdapter.StarWarsType.PEOPLE.toString()){
-            StarWarsObject clickedItem = people.get(position);
-            Intent peopleIntent = new Intent(this, PeopleActivity.class);
-            peopleIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-            startActivity(peopleIntent);
-        }
-    }
+//    @Override
+//    public void onItemClicked(int position) {
+////        //this will return an item from an enum
+////        String type = mMultiModelAdapter.getItemType();
+////        System.out.println("type " + type);
+////        System.out.println("films " + films);
+////
+////        //Open activity based on enum
+////        if (type == MultiModelAdapter.StarWarsType.FILM.toString()){
+//
+//            StarWarsObject clickedItem = films.get(position);
+//            Intent filmIntent = new Intent(this, FilmActivity.class);
+//            filmIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+//            startActivity(filmIntent);
+//
+////
+////        }else if (type == MultiModelAdapter.StarWarsType.PEOPLE.toString()){
+////            StarWarsObject clickedItem = people.get(position);
+////            Intent peopleIntent = new Intent(this, PeopleActivity.class);
+////            peopleIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+////            startActivity(peopleIntent);
+////        }
+//    }
 
 }
 

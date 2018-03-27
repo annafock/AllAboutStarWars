@@ -90,6 +90,44 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
 
     }
 
+    public class TextTypeViewHolderFilm extends RecyclerView.ViewHolder{
+
+        TextView textTypeFilm, textTypeName;
+
+
+        public TextTypeViewHolderFilm(View itemView) {
+            super(itemView);
+
+            textTypeFilm = (TextView) itemView.findViewById(R.id.text_view_category);
+
+            //This is often set in ionBindViewHolder but it takes less cost to put it here
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(mListener!=null){
+                        int position = getAdapterPosition();
+                        if(position!=RecyclerView.NO_POSITION){
+                            mListener.onItemClicked(position);
+                        }
+
+                    }
+                }
+            });
+        }
+
+    }
+
+    @Override
+    public int getItemViewType(int position){
+        int viewType = 0;
+        if (mDataSet.get(position) instanceof Film){
+            viewType= 0;
+        }
+    return viewType;
+    }
+
+
+
     public MultiModelAdapter(ArrayList<StarWarsObject>data, Context context) {
         this.mDataSet = data;
         this.mContext = context;
@@ -98,9 +136,12 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//        switch(viewType){
+//            case 0:
         View v = LayoutInflater.from(mContext).inflate(R.layout.starwars_item, parent, false);
 
         return new TextTypeViewHolder(v);
+//        }
     }
 
     @Override
@@ -110,13 +151,14 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
 
         //TODO find a way to make this a switch case - instanceof can't be used with switch
         if (object instanceof Film){
+        if (holder == ((TextTypeViewHolderFilm) holder)){
 
-            ((TextTypeViewHolder) holder).textType.setText(((Film) object).title);
+            ((TextTypeViewHolderFilm) holder).textTypeFilm.setText(((Film) object).title);
             //type = StarWarsType.FILM;
             //set the enum instead of object here
-            ((TextTypeViewHolder) holder).textType.setTag(StarWarsType.FILM);
+            ((TextTypeViewHolderFilm) holder).textTypeFilm.setTag(StarWarsType.FILM);
 
-        }else if(object instanceof People) {
+        }}else if(object instanceof People) {
 
             ((TextTypeViewHolder) holder).textType.setText(((People) object).name);
             type = StarWarsType.PEOPLE;
