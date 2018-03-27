@@ -1,4 +1,4 @@
-package com.example.allaboutstarwars;
+package com.example.allaboutstarwars.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +14,7 @@ import com.example.allaboutstarwars.Models.Species;
 import com.example.allaboutstarwars.Models.StarWarsObject;
 import com.example.allaboutstarwars.Models.Starship;
 import com.example.allaboutstarwars.Models.Vehicle;
+import com.example.allaboutstarwars.R;
 
 import java.util.ArrayList;
 
@@ -26,28 +27,28 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
     private ArrayList<StarWarsObject> mDataSet;
     int totalTypes;
     private OnMultiModelItemClickListener mListener;
-    StarWarsType type;
+    //StarWarsType type;
 
-    public enum StarWarsType {
-        FILM("film", 0),
-        PEOPLE("people", 1),
-        PLANET("planet", 2),
-        SPECIES("species", 3),
-        STARSHIP("starship", 4),
-        VEHICLE("vehicle", 5);
-
-        private String stringValue;
-        private int intValue;
-        private StarWarsType(String toString, int value) {
-            stringValue = toString;
-            intValue = value;
-        }
-
-        @Override
-        public String toString() {
-            return stringValue;
-        }
-    }
+//    public enum StarWarsType {
+//        FILM("film", 0),
+//        PEOPLE("people", 1),
+//        PLANET("planet", 2),
+//        SPECIES("species", 3),
+//        STARSHIP("starship", 4),
+//        VEHICLE("vehicle", 5);
+//
+//        private String stringValue;
+//        private int intValue;
+//        private StarWarsType(String toString, int value) {
+//            stringValue = toString;
+//            intValue = value;
+//        }
+//
+//        @Override
+//        public String toString() {
+//            return stringValue;
+//        }
+//    }
 
     public interface OnMultiModelItemClickListener {
         void onItemClicked(int position);
@@ -90,6 +91,44 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
 
     }
 
+    public class TextTypeViewHolderFilm extends RecyclerView.ViewHolder{
+
+        TextView textTypeFilm, textTypeName;
+
+
+        public TextTypeViewHolderFilm(View itemView) {
+            super(itemView);
+
+            textTypeFilm = (TextView) itemView.findViewById(R.id.text_view_category);
+
+            //This is often set in ionBindViewHolder but it takes less cost to put it here
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(mListener!=null){
+                        int position = getAdapterPosition();
+                        if(position!=RecyclerView.NO_POSITION){
+                            mListener.onItemClicked(position);
+                        }
+
+                    }
+                }
+            });
+        }
+
+    }
+
+    @Override
+    public int getItemViewType(int position){
+        int viewType = 0;
+        if (mDataSet.get(position) instanceof Film){
+            viewType= 0;
+        }
+    return viewType;
+    }
+
+
+
     public MultiModelAdapter(ArrayList<StarWarsObject>data, Context context) {
         this.mDataSet = data;
         this.mContext = context;
@@ -98,9 +137,12 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//        switch(viewType){
+//            case 0:
         View v = LayoutInflater.from(mContext).inflate(R.layout.starwars_item, parent, false);
 
         return new TextTypeViewHolder(v);
+//        }
     }
 
     @Override
@@ -112,39 +154,26 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
         if (object instanceof Film){
 
             ((TextTypeViewHolder) holder).textType.setText(((Film) object).title);
-            //type = StarWarsType.FILM;
-            //set the enum instead of object here
-            ((TextTypeViewHolder) holder).textType.setTag(StarWarsType.FILM);
 
         }else if(object instanceof People) {
 
             ((TextTypeViewHolder) holder).textType.setText(((People) object).name);
-            type = StarWarsType.PEOPLE;
-            ((TextTypeViewHolder) holder).textType.setTag(type);
 
         }else if(object instanceof Planet) {
 
             ((TextTypeViewHolder) holder).textType.setText(((Planet) object).name);
-            type = StarWarsType.PLANET;
-            ((TextTypeViewHolder) holder).textType.setTag(type);
 
         }else if(object instanceof Species) {
 
             ((TextTypeViewHolder) holder).textType.setText(((Species) object).name);
-            type = StarWarsType.SPECIES;
-            ((TextTypeViewHolder) holder).textType.setTag(type);
 
         }else if(object instanceof Starship) {
 
             ((TextTypeViewHolder) holder).textType.setText(((Starship) object).name);
-            type = StarWarsType.STARSHIP;
-            ((TextTypeViewHolder) holder).textType.setTag(type);
 
         }else if(object instanceof Vehicle) {
 
             ((TextTypeViewHolder) holder).textType.setText(((Vehicle) object).name);
-            type = StarWarsType.VEHICLE;
-            ((TextTypeViewHolder) holder).textType.setTag(type);
         }
     }
 
@@ -153,9 +182,4 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
         return mDataSet.size();
     }
 
-    public String getItemType(){
-
-    return type.toString();
-
-    }
 }

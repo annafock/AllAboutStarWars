@@ -1,14 +1,11 @@
-package com.example.allaboutstarwars;
+package com.example.allaboutstarwars.Models;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.io.Serializable;
 
 /**
  * Created by anna on 3/20/18.
  */
 
-class Category implements Serializable{
+public class Category{
     String item;
 
     public Category(String item){

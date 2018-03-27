@@ -1,4 +1,4 @@
-package com.example.allaboutstarwars;
+package com.example.allaboutstarwars.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +13,9 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.allaboutstarwars.Adapters.StarWarsAdapter;
+import com.example.allaboutstarwars.Models.Category;
+import com.example.allaboutstarwars.R;
 
 
 import org.json.JSONArray;

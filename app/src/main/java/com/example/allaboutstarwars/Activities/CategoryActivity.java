@@ -1,4 +1,4 @@
-package com.example.allaboutstarwars;
+package com.example.allaboutstarwars.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.allaboutstarwars.Adapters.MultiModelAdapter;
 import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
 import com.example.allaboutstarwars.Models.Planet;
@@ -20,6 +21,7 @@ import com.example.allaboutstarwars.Models.Species;
 import com.example.allaboutstarwars.Models.StarWarsObject;
 import com.example.allaboutstarwars.Models.Starship;
 import com.example.allaboutstarwars.Models.Vehicle;
+import com.example.allaboutstarwars.R;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -28,7 +30,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static com.example.allaboutstarwars.MainActivity.EXTRA_CATEGORY;
+import static com.example.allaboutstarwars.Activities.MainActivity.EXTRA_CATEGORY;
 
 /**
  * Created by anna on 3/20/18.
@@ -147,6 +149,23 @@ public class CategoryActivity extends AppCompatActivity implements MultiModelAda
         } else if (clickedItem instanceof Film){
             categoryIntent = new Intent(this, FilmActivity.class);
             categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+
+        } else if (clickedItem instanceof Planet){
+            categoryIntent = new Intent(this, PlanetActivity.class);
+            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+
+        } else if (clickedItem instanceof Species){
+            categoryIntent = new Intent(this, SpeciesActivity.class);
+            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+
+        } else if (clickedItem instanceof Starship){
+            categoryIntent = new Intent(this, StarshipActivity.class);
+            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+
+        } else if (clickedItem instanceof Vehicle){
+            categoryIntent = new Intent(this, VehicleActivity.class);
+            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+
 
         }
 

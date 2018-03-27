@@ -1,6 +1,5 @@
-package com.example.allaboutstarwars;
+package com.example.allaboutstarwars.Activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -11,24 +10,23 @@ import com.example.allaboutstarwars.Models.Species;
 import com.example.allaboutstarwars.Models.StarWarsObject;
 import com.example.allaboutstarwars.Models.Starship;
 import com.example.allaboutstarwars.Models.Vehicle;
+import com.example.allaboutstarwars.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.allaboutstarwars.CategoryActivity.EXTRA_STAR_WARS_OBJECT;
+import static com.example.allaboutstarwars.Activities.CategoryActivity.EXTRA_STAR_WARS_OBJECT;
 
-public class FilmActivity extends DetailActivity implements MultiModelAdapter.OnMultiModelItemClickListener{
-    TextView textViewDetailTitle;
-    private MultiModelAdapter mMultiModelAdapter;
-
+public class FilmActivity extends DetailActivity{
+    TextView mTextViewDetailTitle;
     private StarWarsObject starWarsObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        starWarsObject = (StarWarsObject) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
+        starWarsObject = (Film) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
 
         setContentView(R.layout.film);
 
@@ -42,11 +40,8 @@ public class FilmActivity extends DetailActivity implements MultiModelAdapter.On
         super.setRecyclerViewLayout(starWarsObject);
         super.parseJSON(map);
 
-    }
-
-    @Override
-    public void onItemClicked(int position) {
-    super.onItemClicked(position);
+        mTextViewDetailTitle = (TextView) findViewById(R.id.text_view_detail_title);
+        mTextViewDetailTitle.setText(((Film) starWarsObject).title);
 
     }
 
