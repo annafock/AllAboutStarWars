@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,16 +19,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CategoryActivity"
-            android:parentActivityName=".MainActivity">
+            android:name=".Activities.CategoryActivity"
+            android:parentActivityName=".Activities.MainActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".Activities.MainActivity" />
         </activity>
-        <activity android:name=".PeopleActivity"></activity>
-        <activity android:name=".FilmActivity"></activity>
+        <activity android:name=".Activities.PeopleActivity"></activity>
+        <activity android:name=".Activities.FilmActivity"></activity>
     </application>
 
 </manifest>

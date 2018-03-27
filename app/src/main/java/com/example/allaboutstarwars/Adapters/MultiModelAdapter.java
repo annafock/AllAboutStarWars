@@ -1,4 +1,4 @@
-package com.example.allaboutstarwars;
+package com.example.allaboutstarwars.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +14,7 @@ import com.example.allaboutstarwars.Models.Species;
 import com.example.allaboutstarwars.Models.StarWarsObject;
 import com.example.allaboutstarwars.Models.Starship;
 import com.example.allaboutstarwars.Models.Vehicle;
+import com.example.allaboutstarwars.R;
 
 import java.util.ArrayList;
 

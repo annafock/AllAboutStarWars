@@ -1,10 +1,7 @@
 package com.example.allaboutstarwars.Models;
 
-import com.example.allaboutstarwars.StarWarsAdapter;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**

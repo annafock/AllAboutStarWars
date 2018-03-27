@@ -1,35 +1,21 @@
-package com.example.allaboutstarwars;
+package com.example.allaboutstarwars.Activities;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
-import com.example.allaboutstarwars.Models.Planet;
 import com.example.allaboutstarwars.Models.Species;
 import com.example.allaboutstarwars.Models.StarWarsObject;
 import com.example.allaboutstarwars.Models.Starship;
 import com.example.allaboutstarwars.Models.Vehicle;
-import com.google.gson.Gson;
-
-import org.json.JSONObject;
+import com.example.allaboutstarwars.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.allaboutstarwars.CategoryActivity.EXTRA_STAR_WARS_OBJECT;
+import static com.example.allaboutstarwars.Activities.CategoryActivity.EXTRA_STAR_WARS_OBJECT;
 
 public class PeopleActivity extends DetailActivity{
     TextView mTextViewDetailTitle;

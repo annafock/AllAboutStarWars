@@ -1,4 +1,4 @@
-package com.example.allaboutstarwars;
+package com.example.allaboutstarwars.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,21 +8,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.allaboutstarwars.Models.People;
+import com.example.allaboutstarwars.Models.Planet;
 import com.example.allaboutstarwars.Models.StarWarsObject;
+import com.example.allaboutstarwars.Activities.PlanetActivity;
+import com.example.allaboutstarwars.R;
 
 import java.util.ArrayList;
 
-import static com.example.allaboutstarwars.CategoryActivity.EXTRA_STAR_WARS_OBJECT;
+import static com.example.allaboutstarwars.Activities.CategoryActivity.EXTRA_STAR_WARS_OBJECT;
 
 /**
  * Created by anna on 3/19/18.
  */
 
-public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.PeopleViewHolder> {
+public class PlanetAdapter extends RecyclerView.Adapter<PlanetAdapter.PlanetViewHolder> {
     private Context mContext;
     private ArrayList<StarWarsObject> mDataSet;
     private OnItemClickListener mListener;
+
 
 
     public interface OnItemClickListener {
@@ -31,24 +34,22 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.PeopleView
 
     public void setOnItemClickListener(OnItemClickListener listener){ mListener = listener; }
 
-    public PeopleAdapter(Context context, ArrayList<StarWarsObject> dataSet){
+    public PlanetAdapter(Context context, ArrayList<StarWarsObject> dataSet){
 
         mContext = context;
         mDataSet = dataSet;
     }
 
     @Override
-    public PeopleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PlanetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(mContext).inflate(R.layout.starwars_item, parent, false);
-        return new PeopleViewHolder(v);
+        return new PlanetViewHolder(v);
     }
 
-
     @Override
-    public void onBindViewHolder(PeopleViewHolder holder, int position) {
+    public void onBindViewHolder(PlanetViewHolder holder, int position) {
         StarWarsObject object = mDataSet.get(position);
-        holder.textType.setText(((People) object).name);
-
+        holder.textType.setText(((Planet) object).name);
     }
 
     @Override
@@ -56,12 +57,12 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.PeopleView
         return mDataSet.size();
     }
 
-    public class PeopleViewHolder extends RecyclerView.ViewHolder{
+    public class PlanetViewHolder extends RecyclerView.ViewHolder{
 
         public TextView textType;
 
 
-        public PeopleViewHolder(View itemView) {
+        public PlanetViewHolder(View itemView) {
             super(itemView);
 
             textType = itemView.findViewById(R.id.text_view_category);
@@ -76,9 +77,10 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.PeopleView
                             mListener.onItemClicked(position);
                             StarWarsObject clickedItem = mDataSet.get(position);
 
-                            Intent intent = new Intent(mContext, PeopleActivity.class);
+                            Intent intent = new Intent(mContext, PlanetActivity.class);
                             intent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
                             mContext.startActivity(intent);
+
                         }
 
                     }
@@ -87,6 +89,5 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.PeopleView
         }
 
     }
-
 
 }

@@ -1,4 +1,4 @@
-package com.example.allaboutstarwars;
+package com.example.allaboutstarwars.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,17 +8,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.StarWarsObject;
-import static com.example.allaboutstarwars.CategoryActivity.EXTRA_STAR_WARS_OBJECT;
+import com.example.allaboutstarwars.Models.Vehicle;
+import com.example.allaboutstarwars.R;
+import com.example.allaboutstarwars.Activities.VehicleActivity;
 
 import java.util.ArrayList;
+
+import static com.example.allaboutstarwars.Activities.CategoryActivity.EXTRA_STAR_WARS_OBJECT;
 
 /**
  * Created by anna on 3/19/18.
  */
 
-public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder> {
+public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleViewHolder> {
     private Context mContext;
     private ArrayList<StarWarsObject> mDataSet;
     private OnItemClickListener mListener;
@@ -31,22 +34,22 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
 
     public void setOnItemClickListener(OnItemClickListener listener){ mListener = listener; }
 
-    public FilmAdapter(Context context, ArrayList<StarWarsObject> dataSet){
+    public VehicleAdapter(Context context, ArrayList<StarWarsObject> dataSet){
 
         mContext = context;
         mDataSet = dataSet;
     }
 
     @Override
-    public FilmViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public VehicleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(mContext).inflate(R.layout.starwars_item, parent, false);
-        return new FilmViewHolder(v);
+        return new VehicleViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(FilmViewHolder holder, int position) {
+    public void onBindViewHolder(VehicleViewHolder holder, int position) {
         StarWarsObject object = mDataSet.get(position);
-        holder.textType.setText(((Film) object).title);
+        holder.textType.setText(((Vehicle) object).name);
     }
 
     @Override
@@ -54,12 +57,12 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
         return mDataSet.size();
     }
 
-    public class FilmViewHolder extends RecyclerView.ViewHolder{
+    public class VehicleViewHolder extends RecyclerView.ViewHolder{
 
         public TextView textType;
 
 
-        public FilmViewHolder(View itemView) {
+        public VehicleViewHolder(View itemView) {
             super(itemView);
 
             textType = itemView.findViewById(R.id.text_view_category);
@@ -74,7 +77,7 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
                             mListener.onItemClicked(position);
                             StarWarsObject clickedItem = mDataSet.get(position);
 
-                            Intent intent = new Intent(mContext, FilmActivity.class);
+                            Intent intent = new Intent(mContext, VehicleActivity.class);
                             intent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
                             mContext.startActivity(intent);
 
