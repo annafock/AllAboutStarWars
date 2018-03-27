@@ -41,18 +41,18 @@ public class FilmActivity extends DetailActivity implements FilmAdapter.OnItemCl
         super.setRecyclerViewLayout(starWarsObject);
         super.parseJSON(map);
 
-        mFilmAdapter.setOnItemClickListener(FilmActivity.this);
+      //  mFilmAdapter.setOnItemClickListener(FilmActivity.this);
 
     }
 
     @Override
     public void onItemClicked(int position) {
-      //  super.onItemClicked(position);
+        super.onItemClicked(position);
 
-        StarWarsObject clickedItem = films.get(position);
-        Intent filmIntent = new Intent(this, FilmActivity.class);
-        filmIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-        startActivity(filmIntent);
+//        StarWarsObject clickedItem = films.get(position);
+//        Intent filmIntent = new Intent(this, FilmActivity.class);
+//        filmIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+//        startActivity(filmIntent);
 
 
     }

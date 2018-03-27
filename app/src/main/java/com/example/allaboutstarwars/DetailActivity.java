@@ -31,7 +31,9 @@ import java.util.Map;
 
 import static com.example.allaboutstarwars.CategoryActivity.EXTRA_STAR_WARS_OBJECT;
 
-public abstract class DetailActivity extends AppCompatActivity implements MultiModelAdapter.OnMultiModelItemClickListener{
+public abstract class DetailActivity extends AppCompatActivity implements MultiModelAdapter.OnMultiModelItemClickListener,
+        PeopleAdapter.OnItemClickListener, FilmAdapter.OnItemClickListener {
+
     private RecyclerView mRecyclerViewFilms, mRecyclerViewSpecies, mRecyclerViewPeople,
             mRecyclerViewPlanet, mRecyclerViewStarship, mRecyclerViewVehicle;
     protected MultiModelAdapter mMultiModelAdapter;
@@ -127,6 +129,7 @@ public abstract class DetailActivity extends AppCompatActivity implements MultiM
                                     mFilmAdapter = new FilmAdapter(DetailActivity.this, films);
 
                                     mRecyclerViewFilms.setAdapter(mFilmAdapter);
+                                    mFilmAdapter.setOnItemClickListener(DetailActivity.this);
 
                                 }
                                 else if (modelClass == People.class){
@@ -136,6 +139,7 @@ public abstract class DetailActivity extends AppCompatActivity implements MultiM
                                     mPeopleAdapter = new PeopleAdapter(DetailActivity.this, people);
 
                                     mRecyclerViewPeople.setAdapter(mPeopleAdapter);
+                                    mPeopleAdapter.setOnItemClickListener(DetailActivity.this);
 
                                 }
 //                                else if (modelClass == Planet.class){
@@ -177,41 +181,27 @@ public abstract class DetailActivity extends AppCompatActivity implements MultiM
 
     }
 
-    public void populateRecyclerView(String requestResult, ArrayList<StarWarsObject> starWarsObjectList, Class modelClass){
-        //Parse result and create star wars object of different type
-        starWarsObject = (StarWarsObject)gson.fromJson(requestResult, modelClass);
+    @Override
+    public void onItemClicked(int position) {
 
-        starWarsObjectList.add(starWarsObject);
-        //mStarWarsObjectList.add(starWarsObject);
-        mMultiModelAdapter = new MultiModelAdapter(DetailActivity.this, starWarsObjectList);
-
-        mMultiModelAdapter.setOnItemClickListener(DetailActivity.this);
-
-    }
-
-//    @Override
-//    public void onItemClicked(int position) {
-////        //this will return an item from an enum
-////        String type = mMultiModelAdapter.getItemType();
-////        System.out.println("type " + type);
-////        System.out.println("films " + films);
-////
-////        //Open activity based on enum
-////        if (type == MultiModelAdapter.StarWarsType.FILM.toString()){
+//        StarWarsObject clickedItem;
 //
-//            StarWarsObject clickedItem = films.get(position);
+//        if(films.get(position) != null){
+//            clickedItem = films.get(position);
 //            Intent filmIntent = new Intent(this, FilmActivity.class);
 //            filmIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
 //            startActivity(filmIntent);
-//
-////
-////        }else if (type == MultiModelAdapter.StarWarsType.PEOPLE.toString()){
-////            StarWarsObject clickedItem = people.get(position);
-////            Intent peopleIntent = new Intent(this, PeopleActivity.class);
-////            peopleIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-////            startActivity(peopleIntent);
-////        }
-//    }
+//        } else if (people.get(position)!=null){
+//            clickedItem = people.get(position);
+//            Intent peopleIntent = new Intent(this, PeopleActivity.class);
+//            peopleIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+//            startActivity(peopleIntent);
+
+//        }
+
+
+
+    }
 
 }
 

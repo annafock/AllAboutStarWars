@@ -31,7 +31,8 @@ import java.util.Map;
 
 import static com.example.allaboutstarwars.CategoryActivity.EXTRA_STAR_WARS_OBJECT;
 
-public class PeopleActivity extends DetailActivity implements PeopleAdapter.OnItemClickListener{
+public class PeopleActivity extends DetailActivity implements PeopleAdapter.OnItemClickListener,
+        FilmAdapter.OnItemClickListener{
     TextView mTextViewDetailTitle;
     private MultiModelAdapter mMultiModelAdapter;
 
@@ -57,7 +58,7 @@ public class PeopleActivity extends DetailActivity implements PeopleAdapter.OnIt
         super.setRecyclerViewLayout(starWarsObject);
         super.parseJSON(map);
 
-       // mPeopleAdapter.setOnItemClickListener(PeopleActivity.this);
+
 
 
     }
@@ -65,12 +66,12 @@ public class PeopleActivity extends DetailActivity implements PeopleAdapter.OnIt
 
     @Override
     public void onItemClicked(int position) {
-       // super.onItemClicked(position);
+        super.onItemClicked(position);
 
-            StarWarsObject clickedItem = films.get(position);
-            Intent filmIntent = new Intent(this, FilmActivity.class);
-            filmIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-            startActivity(filmIntent);
+//            StarWarsObject clickedItem = films.get(position);
+//            Intent filmIntent = new Intent(this, FilmActivity.class);
+//            filmIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+//            startActivity(filmIntent);
 
 
 

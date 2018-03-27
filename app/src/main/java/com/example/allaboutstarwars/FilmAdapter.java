@@ -1,6 +1,7 @@
 package com.example.allaboutstarwars;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.StarWarsObject;
+import static com.example.allaboutstarwars.CategoryActivity.EXTRA_STAR_WARS_OBJECT;
 
 import java.util.ArrayList;
 
@@ -20,6 +22,7 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
     private Context mContext;
     private ArrayList<StarWarsObject> mDataSet;
     private OnItemClickListener mListener;
+
 
 
     public interface OnItemClickListener {
@@ -71,6 +74,12 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
                         int position = getAdapterPosition();
                         if(position!=RecyclerView.NO_POSITION){
                             mListener.onItemClicked(position);
+                            StarWarsObject clickedItem = mDataSet.get(position);
+
+                            Intent filmIntent = new Intent(mContext, FilmActivity.class);
+                            filmIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+                            mContext.startActivity(filmIntent);
+
                         }
 
                     }
