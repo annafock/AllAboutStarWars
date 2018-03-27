@@ -19,15 +19,14 @@ import java.util.Map;
 import static com.example.allaboutstarwars.CategoryActivity.EXTRA_STAR_WARS_OBJECT;
 
 public class FilmActivity extends DetailActivity{
-    TextView textViewDetailTitle;
-
+    TextView mTextViewDetailTitle;
     private StarWarsObject starWarsObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        starWarsObject = (StarWarsObject) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
+        starWarsObject = (Film) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
 
         setContentView(R.layout.film);
 
@@ -41,10 +40,9 @@ public class FilmActivity extends DetailActivity{
         super.setRecyclerViewLayout(starWarsObject);
         super.parseJSON(map);
 
-      //  mFilmAdapter.setOnItemClickListener(FilmActivity.this);
+        mTextViewDetailTitle = (TextView) findViewById(R.id.text_view_detail_title);
+        mTextViewDetailTitle.setText(((Film) starWarsObject).title);
 
     }
-
-
 
 }

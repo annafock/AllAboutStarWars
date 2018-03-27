@@ -31,11 +31,8 @@ import java.util.Map;
 
 import static com.example.allaboutstarwars.CategoryActivity.EXTRA_STAR_WARS_OBJECT;
 
-public class PeopleActivity extends DetailActivity implements PeopleAdapter.OnItemClickListener,
-        FilmAdapter.OnItemClickListener{
+public class PeopleActivity extends DetailActivity{
     TextView mTextViewDetailTitle;
-    private MultiModelAdapter mMultiModelAdapter;
-
     private StarWarsObject starWarsObject;
 
     @Override
@@ -43,8 +40,6 @@ public class PeopleActivity extends DetailActivity implements PeopleAdapter.OnIt
         super.onCreate(savedInstanceState);
 
         starWarsObject = (People) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
-        mTextViewDetailTitle = (TextView) findViewById(R.id.text_view_detail_title);
-        //mTextViewDetailTitle.setText((starWarsObject.name);
 
         setContentView(R.layout.people);
 
@@ -58,8 +53,8 @@ public class PeopleActivity extends DetailActivity implements PeopleAdapter.OnIt
         super.setRecyclerViewLayout(starWarsObject);
         super.parseJSON(map);
 
-
-
+        mTextViewDetailTitle = (TextView) findViewById(R.id.text_view_detail_title);
+        mTextViewDetailTitle.setText(((People) starWarsObject).name);
 
     }
 

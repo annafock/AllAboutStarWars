@@ -184,22 +184,6 @@ public abstract class DetailActivity extends AppCompatActivity implements MultiM
     @Override
     public void onItemClicked(int position) {
 
-//        StarWarsObject clickedItem;
-//
-//        if(films.get(position) != null){
-//            clickedItem = films.get(position);
-//            Intent filmIntent = new Intent(this, FilmActivity.class);
-//            filmIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-//            startActivity(filmIntent);
-//        } else if (people.get(position)!=null){
-//            clickedItem = people.get(position);
-//            Intent peopleIntent = new Intent(this, PeopleActivity.class);
-//            peopleIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-//            startActivity(peopleIntent);
-
-//        }
-
-
 
     }
 

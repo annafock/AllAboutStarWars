@@ -1,6 +1,7 @@
 package com.example.allaboutstarwars;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import com.example.allaboutstarwars.Models.People;
 import com.example.allaboutstarwars.Models.StarWarsObject;
 
 import java.util.ArrayList;
+
+import static com.example.allaboutstarwars.CategoryActivity.EXTRA_STAR_WARS_OBJECT;
 
 /**
  * Created by anna on 3/19/18.
@@ -46,7 +49,6 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.PeopleView
         StarWarsObject object = mDataSet.get(position);
         holder.textType.setText(((People) object).name);
 
-        //((FilmViewHolder) holder).textType.setText(((Film) object).title);
     }
 
     @Override
@@ -72,6 +74,11 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.PeopleView
                         int position = getAdapterPosition();
                         if(position!=RecyclerView.NO_POSITION){
                             mListener.onItemClicked(position);
+                            StarWarsObject clickedItem = mDataSet.get(position);
+
+                            Intent intent = new Intent(mContext, PeopleActivity.class);
+                            intent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+                            mContext.startActivity(intent);
                         }
 
                     }

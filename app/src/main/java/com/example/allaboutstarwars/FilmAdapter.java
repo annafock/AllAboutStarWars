@@ -47,8 +47,6 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
     public void onBindViewHolder(FilmViewHolder holder, int position) {
         StarWarsObject object = mDataSet.get(position);
         holder.textType.setText(((Film) object).title);
-
-        //((FilmViewHolder) holder).textType.setText(((Film) object).title);
     }
 
     @Override
@@ -76,9 +74,9 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
                             mListener.onItemClicked(position);
                             StarWarsObject clickedItem = mDataSet.get(position);
 
-                            Intent filmIntent = new Intent(mContext, FilmActivity.class);
-                            filmIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-                            mContext.startActivity(filmIntent);
+                            Intent intent = new Intent(mContext, FilmActivity.class);
+                            intent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+                            mContext.startActivity(intent);
 
                         }
 
