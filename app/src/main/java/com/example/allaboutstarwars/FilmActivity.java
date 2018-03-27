@@ -18,7 +18,7 @@ import java.util.Map;
 
 import static com.example.allaboutstarwars.CategoryActivity.EXTRA_STAR_WARS_OBJECT;
 
-public class FilmActivity extends DetailActivity implements FilmAdapter.OnItemClickListener{
+public class FilmActivity extends DetailActivity{
     TextView textViewDetailTitle;
 
     private StarWarsObject starWarsObject;
@@ -45,16 +45,6 @@ public class FilmActivity extends DetailActivity implements FilmAdapter.OnItemCl
 
     }
 
-    @Override
-    public void onItemClicked(int position) {
-        super.onItemClicked(position);
 
-//        StarWarsObject clickedItem = films.get(position);
-//        Intent filmIntent = new Intent(this, FilmActivity.class);
-//        filmIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-//        startActivity(filmIntent);
-
-
-    }
 
 }
