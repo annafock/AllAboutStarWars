@@ -44,19 +44,4 @@ public class PeopleActivity extends DetailActivity{
 
     }
 
-
-    @Override
-    public void onItemClicked(int position) {
-        super.onItemClicked(position);
-
-//            StarWarsObject clickedItem = films.get(position);
-//            Intent filmIntent = new Intent(this, FilmActivity.class);
-//            filmIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-//            startActivity(filmIntent);
-
-
-
-
-    }
-
 }

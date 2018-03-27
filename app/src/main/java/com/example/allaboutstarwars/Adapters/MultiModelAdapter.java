@@ -27,28 +27,28 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
     private ArrayList<StarWarsObject> mDataSet;
     int totalTypes;
     private OnMultiModelItemClickListener mListener;
-    StarWarsType type;
+    //StarWarsType type;
 
-    public enum StarWarsType {
-        FILM("film", 0),
-        PEOPLE("people", 1),
-        PLANET("planet", 2),
-        SPECIES("species", 3),
-        STARSHIP("starship", 4),
-        VEHICLE("vehicle", 5);
-
-        private String stringValue;
-        private int intValue;
-        private StarWarsType(String toString, int value) {
-            stringValue = toString;
-            intValue = value;
-        }
-
-        @Override
-        public String toString() {
-            return stringValue;
-        }
-    }
+//    public enum StarWarsType {
+//        FILM("film", 0),
+//        PEOPLE("people", 1),
+//        PLANET("planet", 2),
+//        SPECIES("species", 3),
+//        STARSHIP("starship", 4),
+//        VEHICLE("vehicle", 5);
+//
+//        private String stringValue;
+//        private int intValue;
+//        private StarWarsType(String toString, int value) {
+//            stringValue = toString;
+//            intValue = value;
+//        }
+//
+//        @Override
+//        public String toString() {
+//            return stringValue;
+//        }
+//    }
 
     public interface OnMultiModelItemClickListener {
         void onItemClicked(int position);
@@ -152,42 +152,28 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
 
         //TODO find a way to make this a switch case - instanceof can't be used with switch
         if (object instanceof Film){
-        if (holder == ((TextTypeViewHolderFilm) holder)){
 
-            ((TextTypeViewHolderFilm) holder).textTypeFilm.setText(((Film) object).title);
-            //type = StarWarsType.FILM;
-            //set the enum instead of object here
-            ((TextTypeViewHolderFilm) holder).textTypeFilm.setTag(StarWarsType.FILM);
+            ((TextTypeViewHolder) holder).textType.setText(((Film) object).title);
 
-        }}else if(object instanceof People) {
+        }else if(object instanceof People) {
 
             ((TextTypeViewHolder) holder).textType.setText(((People) object).name);
-            type = StarWarsType.PEOPLE;
-            ((TextTypeViewHolder) holder).textType.setTag(type);
 
         }else if(object instanceof Planet) {
 
             ((TextTypeViewHolder) holder).textType.setText(((Planet) object).name);
-            type = StarWarsType.PLANET;
-            ((TextTypeViewHolder) holder).textType.setTag(type);
 
         }else if(object instanceof Species) {
 
             ((TextTypeViewHolder) holder).textType.setText(((Species) object).name);
-            type = StarWarsType.SPECIES;
-            ((TextTypeViewHolder) holder).textType.setTag(type);
 
         }else if(object instanceof Starship) {
 
             ((TextTypeViewHolder) holder).textType.setText(((Starship) object).name);
-            type = StarWarsType.STARSHIP;
-            ((TextTypeViewHolder) holder).textType.setTag(type);
 
         }else if(object instanceof Vehicle) {
 
             ((TextTypeViewHolder) holder).textType.setText(((Vehicle) object).name);
-            type = StarWarsType.VEHICLE;
-            ((TextTypeViewHolder) holder).textType.setTag(type);
         }
     }
 
@@ -196,9 +182,4 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
         return mDataSet.size();
     }
 
-    public String getItemType(){
-
-    return type.toString();
-
-    }
 }

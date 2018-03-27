@@ -150,6 +150,23 @@ public class CategoryActivity extends AppCompatActivity implements MultiModelAda
             categoryIntent = new Intent(this, FilmActivity.class);
             categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
 
+        } else if (clickedItem instanceof Planet){
+            categoryIntent = new Intent(this, PlanetActivity.class);
+            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+
+        } else if (clickedItem instanceof Species){
+            categoryIntent = new Intent(this, SpeciesActivity.class);
+            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+
+        } else if (clickedItem instanceof Starship){
+            categoryIntent = new Intent(this, StarshipActivity.class);
+            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+
+        } else if (clickedItem instanceof Vehicle){
+            categoryIntent = new Intent(this, VehicleActivity.class);
+            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+
+
         }
 
         startActivity(categoryIntent);
