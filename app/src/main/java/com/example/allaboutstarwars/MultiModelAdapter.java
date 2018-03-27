@@ -112,9 +112,9 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
         if (object instanceof Film){
 
             ((TextTypeViewHolder) holder).textType.setText(((Film) object).title);
-            type = StarWarsType.FILM;
+            //type = StarWarsType.FILM;
             //set the enum instead of object here
-            ((TextTypeViewHolder) holder).textType.setTag(type);
+            ((TextTypeViewHolder) holder).textType.setTag(StarWarsType.FILM);
 
         }else if(object instanceof People) {
 

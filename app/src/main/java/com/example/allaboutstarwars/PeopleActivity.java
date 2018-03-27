@@ -60,27 +60,27 @@ public class PeopleActivity extends DetailActivity implements MultiModelAdapter.
 
     }
 
+
     @Override
     public void onItemClicked(int position) {
+        super.onItemClicked(position);
 
-        //this will return an item from an enum
-        String type = super.mMultiModelAdapter.getItemType();
-        System.out.println("type " + type);
-        System.out.println("films " + films);
-
-        //Open activity based on enum
-       // if (type == MultiModelAdapter.StarWarsType.FILM.toString()){
-            StarWarsObject clickedItem = films.get(position);
-            Intent filmIntent = new Intent(this, FilmActivity.class);
-            filmIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-            startActivity(filmIntent);
-
-
-
+//        //this will return an item from an enum
+//        String type = super.mMultiModelAdapter.getItemType();
+//        System.out.println("type " + type);
+//        System.out.println("films " + films);
+//
+//        //Open activity based on enum
+//        if (type == MultiModelAdapter.StarWarsType.FILM.toString()){
+//            StarWarsObject clickedItem = films.get(position);
+//            Intent filmIntent = new Intent(this, FilmActivity.class);
+//            filmIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+//            startActivity(filmIntent);
+//
 //        }else if (type == MultiModelAdapter.StarWarsType.PEOPLE.toString()){
 //            StarWarsObject clickedItem = people.get(position);
-//            categoryIntent = new Intent(this, PeopleActivity.class);
-//            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+//            Intent peopleIntent = new Intent(this, PeopleActivity.class);
+//            peopleIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
 //        }
 
 

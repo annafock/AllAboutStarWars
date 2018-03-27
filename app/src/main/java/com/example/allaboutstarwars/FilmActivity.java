@@ -39,31 +39,14 @@ public class FilmActivity extends DetailActivity implements MultiModelAdapter.On
         map.put(Starship.class,((Film) starWarsObject).starshipsUrls );
         map.put(Vehicle.class,((Film) starWarsObject).vehiclesUrls );
 
-      //  super.setRecyclerViewLayout(starWarsObject);
-       // super.parseJSON(map);
+        super.setRecyclerViewLayout(starWarsObject);
+        super.parseJSON(map);
 
     }
 
     @Override
     public void onItemClicked(int position) {
-
-        //this will return an item from an enum
-        String type = mMultiModelAdapter.getItemType();
-
-        Intent categoryIntent = new Intent();
-
-        //if the enum is a film
-        if (type == MultiModelAdapter.StarWarsType.FILM.toString()){
-            StarWarsObject clickedItem = films.get(position);
-            categoryIntent = new Intent(this, FilmActivity.class);
-            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-        }else if (type == MultiModelAdapter.StarWarsType.PEOPLE.toString()){
-            StarWarsObject clickedItem = people.get(position);
-            categoryIntent = new Intent(this, PeopleActivity.class);
-            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-        }
-
-        startActivity(categoryIntent);
+    super.onItemClicked(position);
 
     }
 
