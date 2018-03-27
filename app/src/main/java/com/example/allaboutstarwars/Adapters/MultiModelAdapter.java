@@ -27,28 +27,6 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
     private ArrayList<StarWarsObject> mDataSet;
     int totalTypes;
     private OnMultiModelItemClickListener mListener;
-    //StarWarsType type;
-
-//    public enum StarWarsType {
-//        FILM("film", 0),
-//        PEOPLE("people", 1),
-//        PLANET("planet", 2),
-//        SPECIES("species", 3),
-//        STARSHIP("starship", 4),
-//        VEHICLE("vehicle", 5);
-//
-//        private String stringValue;
-//        private int intValue;
-//        private StarWarsType(String toString, int value) {
-//            stringValue = toString;
-//            intValue = value;
-//        }
-//
-//        @Override
-//        public String toString() {
-//            return stringValue;
-//        }
-//    }
 
     public interface OnMultiModelItemClickListener {
         void onItemClicked(int position);
@@ -137,12 +115,10 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        switch(viewType){
-//            case 0:
+
         View v = LayoutInflater.from(mContext).inflate(R.layout.starwars_item, parent, false);
 
         return new TextTypeViewHolder(v);
-//        }
     }
 
     @Override

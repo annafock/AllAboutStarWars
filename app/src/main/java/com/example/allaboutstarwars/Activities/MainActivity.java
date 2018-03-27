@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements StarWarsAdapter.O
         Intent categoryIntent = new Intent(this, CategoryActivity.class);
         Category clickedItem = mCategoryList.get(position);
 
+        //Sends string to category activity
         categoryIntent.putExtra(EXTRA_CATEGORY, clickedItem.getItem());
 
         startActivity(categoryIntent);

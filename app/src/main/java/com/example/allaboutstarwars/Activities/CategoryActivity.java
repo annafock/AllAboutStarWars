@@ -136,10 +136,7 @@ public class CategoryActivity extends AppCompatActivity implements MultiModelAda
     @Override
     public void onItemClicked(int position) {
 
-
-
-        //TODO switch based on class
-
+        //Initiate object of the type the user clicked and send the object to a detail activity
         StarWarsObject clickedItem = (StarWarsObject) mStarWarsObjectList.get(position);
         Intent categoryIntent = new Intent();
 

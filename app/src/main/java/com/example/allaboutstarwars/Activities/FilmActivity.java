@@ -26,10 +26,12 @@ public class FilmActivity extends DetailActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Recieves object from categoriy activity
         starWarsObject = (Film) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
 
         setContentView(R.layout.film);
 
+        //Saves map of url:s with more relating info about this object
         Map<Class, ArrayList<String>> map = new HashMap<>();
         map.put(People.class, ((Film) starWarsObject).charactersUrls);
         map.put(Planet.class,((Film) starWarsObject).planetsUrls);
@@ -37,7 +39,10 @@ public class FilmActivity extends DetailActivity{
         map.put(Starship.class,((Film) starWarsObject).starshipsUrls );
         map.put(Vehicle.class,((Film) starWarsObject).vehiclesUrls );
 
+        //Sets all the recyclerviews in this view
         super.setRecyclerViewLayout(starWarsObject);
+
+        //Populates all recyclerviews in this view
         super.parseJSON(map);
 
         mTextViewDetailTitle = (TextView) findViewById(R.id.text_view_detail_title);

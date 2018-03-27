@@ -67,13 +67,13 @@ public abstract class DetailActivity extends AppCompatActivity implements MultiM
 
     public void setRecyclerViewLayout(StarWarsObject starWarsObject){
 
+        //TODO handle when object doesn't have listcontent
         if(starWarsObject instanceof Film) {
             setmRecyclerViewPeople();
             setmRecyclerViewPlanet();
             setmRecyclerViewSpecies();
             setmRecyclerViewStarship();
             setmRecyclerViewVehicle();
-
         }
 
         if(starWarsObject instanceof People) {
@@ -81,31 +81,26 @@ public abstract class DetailActivity extends AppCompatActivity implements MultiM
             setmRecyclerViewSpecies();
             setmRecyclerViewStarship();
             setmRecyclerViewVehicle();
-
         }
 
         if(starWarsObject instanceof Planet)  {
             setmRecyclerViewPeople();
             setmRecyclerViewFilms();
-
         }
 
         if(starWarsObject instanceof Species) {
             setmRecyclerViewPeople();
             setmRecyclerViewFilms();
-
         }
 
         if(starWarsObject instanceof Starship) {
             setmRecyclerViewPeople();
             setmRecyclerViewFilms();
-
         }
 
         if(starWarsObject instanceof Vehicle) {
             setmRecyclerViewPeople();
             setmRecyclerViewFilms();
-
         }
 
     }
@@ -157,8 +152,9 @@ public abstract class DetailActivity extends AppCompatActivity implements MultiM
 
     }
 
+    /**Recieves a map of each model object and the urls relevant for its activity
+    This method retrieves the url data and populates each recyclerview in all detail views*/
     protected void parseJSON(Map<Class, ArrayList<String>> map){
-        final ArrayList<StarWarsObject> starWarsObjectList = new ArrayList<>();
 
         gson = new Gson();
 
@@ -248,7 +244,6 @@ public abstract class DetailActivity extends AppCompatActivity implements MultiM
                     }
                 });
 
-
                 mRequestQueue.add(request);
 
             }
@@ -258,7 +253,7 @@ public abstract class DetailActivity extends AppCompatActivity implements MultiM
 
     @Override
     public void onItemClicked(int position) {
-
+        //On click for each activity are set in their respective adapters
     }
 
 }

@@ -5,7 +5,6 @@ import android.widget.TextView;
 
 import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
-import com.example.allaboutstarwars.Models.Species;
 import com.example.allaboutstarwars.Models.StarWarsObject;
 import com.example.allaboutstarwars.Models.Starship;
 import com.example.allaboutstarwars.R;
@@ -28,16 +27,20 @@ public class StarshipActivity extends DetailActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Recieves object from categoriy activity
         starWarsObject = (Starship) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
 
         setContentView(R.layout.starship);
 
-
+        //Saves map of url:s with more relating info about this object
         Map<Class, ArrayList<String>> map = new HashMap<>();
         map.put(Film.class, ((Starship) starWarsObject).filmsUrls);
         map.put(People.class,((Starship) starWarsObject).pilots);
 
+        //Sets all the recyclerviews in this view
         super.setRecyclerViewLayout(starWarsObject);
+
+        //Populates all recyclerviews in this view
         super.parseJSON(map);
 
         mTextViewDetailTitle = (TextView) findViewById(R.id.text_view_detail_title);
