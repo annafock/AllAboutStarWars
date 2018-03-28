@@ -1,6 +1,5 @@
 package com.example.allaboutstarwars.Activities;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,7 +12,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.allaboutstarwars.Adapters.StarWarsAdapter;
+import com.example.allaboutstarwars.Adapters.MainAdapter;
 import com.example.allaboutstarwars.Models.Category;
 import com.example.allaboutstarwars.R;
 
@@ -24,10 +23,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements StarWarsAdapter.OnItemClickListener{
-    public static final String EXTRA_CATEGORY = "category_name";
+public class MainActivity extends AppCompatActivity implements MainAdapter.OnItemClickListener{
+
     private RecyclerView mRecyclerView;
-    private StarWarsAdapter mStarWarsAdapter;
+    private MainAdapter mMainAdapter;
     private ArrayList<Category> mCategoryList;
     private RequestQueue mRequestQueue;
 
@@ -65,9 +64,9 @@ public class MainActivity extends AppCompatActivity implements StarWarsAdapter.O
                                 mCategoryList.add(new Category(hit));
                             }
 
-                            mStarWarsAdapter = new StarWarsAdapter(MainActivity.this, mCategoryList);
-                            mRecyclerView.setAdapter(mStarWarsAdapter);
-                            mStarWarsAdapter.setOnItemClickListener(MainActivity.this);
+                            mMainAdapter = new MainAdapter(MainActivity.this, mCategoryList);
+                            mRecyclerView.setAdapter(mMainAdapter);
+                            mMainAdapter.setOnItemClickListener(MainActivity.this);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -102,12 +101,6 @@ public class MainActivity extends AppCompatActivity implements StarWarsAdapter.O
 
     @Override
     public void onItemClicked(int position) {
-        Intent categoryIntent = new Intent(this, CategoryActivity.class);
-        Category clickedItem = mCategoryList.get(position);
-
-        //Sends string to category activity
-        categoryIntent.putExtra(EXTRA_CATEGORY, clickedItem.getItem());
-
-        startActivity(categoryIntent);
+    //Is set in MainAdapter
     }
 }

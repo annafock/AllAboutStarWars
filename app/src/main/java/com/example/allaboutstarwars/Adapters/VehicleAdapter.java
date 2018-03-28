@@ -15,7 +15,7 @@ import com.example.allaboutstarwars.Activities.VehicleActivity;
 
 import java.util.ArrayList;
 
-import static com.example.allaboutstarwars.Activities.CategoryActivity.EXTRA_STAR_WARS_OBJECT;
+import static com.example.allaboutstarwars.Adapters.CategoryAdapter.EXTRA_STAR_WARS_OBJECT;
 
 /**
  * Created by anna on 3/19/18.

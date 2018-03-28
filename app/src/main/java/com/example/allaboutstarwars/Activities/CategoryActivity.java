@@ -13,7 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.allaboutstarwars.Adapters.MultiModelAdapter;
+import com.example.allaboutstarwars.Adapters.CategoryAdapter;
 import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
 import com.example.allaboutstarwars.Models.Planet;
@@ -30,19 +30,19 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static com.example.allaboutstarwars.Activities.MainActivity.EXTRA_CATEGORY;
+import static com.example.allaboutstarwars.Adapters.MainAdapter.EXTRA_CATEGORY;
 
 /**
  * Created by anna on 3/20/18.
  */
 
-public class CategoryActivity extends AppCompatActivity implements MultiModelAdapter.OnMultiModelItemClickListener {
-    public static final String EXTRA_STAR_WARS_OBJECT = "star wars object";
+public class CategoryActivity extends AppCompatActivity implements CategoryAdapter.OnMultiModelItemClickListener {
+
 
     String categoryName;
     private RecyclerView mRecyclerView;
     private TextView mTextViewTitle;
-    private MultiModelAdapter mMultiModelAdapter;
+    private CategoryAdapter mCategoryAdapter;
     private StarWarsObject starWarsObject;
     private ArrayList<StarWarsObject> mStarWarsObjectList;
     private RequestQueue mRequestQueue;
@@ -114,9 +114,9 @@ public class CategoryActivity extends AppCompatActivity implements MultiModelAda
 
                             }
 
-                            mMultiModelAdapter = new MultiModelAdapter(CategoryActivity.this, mStarWarsObjectList);
-                            mRecyclerView.setAdapter(mMultiModelAdapter);
-                            mMultiModelAdapter.setOnItemClickListener(CategoryActivity.this);
+                            mCategoryAdapter = new CategoryAdapter(CategoryActivity.this, mStarWarsObjectList);
+                            mRecyclerView.setAdapter(mCategoryAdapter);
+                            mCategoryAdapter.setOnItemClickListener(CategoryActivity.this);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -135,38 +135,7 @@ public class CategoryActivity extends AppCompatActivity implements MultiModelAda
 
     @Override
     public void onItemClicked(int position) {
-
-        //Initiate object of the type the user clicked and send the object to a detail activity
-        StarWarsObject clickedItem = (StarWarsObject) mStarWarsObjectList.get(position);
-        Intent categoryIntent = new Intent();
-
-        if (clickedItem instanceof People){
-            categoryIntent = new Intent(this, PeopleActivity.class);
-            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-        } else if (clickedItem instanceof Film){
-            categoryIntent = new Intent(this, FilmActivity.class);
-            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-
-        } else if (clickedItem instanceof Planet){
-            categoryIntent = new Intent(this, PlanetActivity.class);
-            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-
-        } else if (clickedItem instanceof Species){
-            categoryIntent = new Intent(this, SpeciesActivity.class);
-            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-
-        } else if (clickedItem instanceof Starship){
-            categoryIntent = new Intent(this, StarshipActivity.class);
-            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-
-        } else if (clickedItem instanceof Vehicle){
-            categoryIntent = new Intent(this, VehicleActivity.class);
-            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-
-
-        }
-
-        startActivity(categoryIntent);
+    // Is set in Category adapter
     }
 
 }
