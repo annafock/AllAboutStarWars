@@ -30,7 +30,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static com.example.allaboutstarwars.Activities.MainActivity.EXTRA_CATEGORY;
+import static com.example.allaboutstarwars.Adapters.MainAdapter.EXTRA_CATEGORY;
 
 /**
  * Created by anna on 3/20/18.
