@@ -1,12 +1,19 @@
 package com.example.allaboutstarwars.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.allaboutstarwars.Activities.FilmActivity;
+import com.example.allaboutstarwars.Activities.PeopleActivity;
+import com.example.allaboutstarwars.Activities.PlanetActivity;
+import com.example.allaboutstarwars.Activities.SpeciesActivity;
+import com.example.allaboutstarwars.Activities.StarshipActivity;
+import com.example.allaboutstarwars.Activities.VehicleActivity;
 import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
 import com.example.allaboutstarwars.Models.Planet;
@@ -27,6 +34,7 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
     private ArrayList<StarWarsObject> mDataSet;
     int totalTypes;
     private OnMultiModelItemClickListener mListener;
+    public static final String EXTRA_STAR_WARS_OBJECT = "star wars object";
 
     public interface OnMultiModelItemClickListener {
         void onItemClicked(int position);
@@ -60,6 +68,38 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
                         int position = getAdapterPosition();
                         if(position!=RecyclerView.NO_POSITION){
                             mListener.onItemClicked(position);
+
+                            //Initiate object of the type the user clicked and send the object to a detail activity
+                            StarWarsObject clickedItem = (StarWarsObject) mDataSet.get(position);
+                            Intent categoryIntent = new Intent();
+
+                            if (clickedItem instanceof People){
+                                categoryIntent = new Intent(mContext, PeopleActivity.class);
+                                categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+                            } else if (clickedItem instanceof Film){
+                                categoryIntent = new Intent(mContext, FilmActivity.class);
+                                categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+
+                            } else if (clickedItem instanceof Planet){
+                                categoryIntent = new Intent(mContext, PlanetActivity.class);
+                                categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+
+                            } else if (clickedItem instanceof Species){
+                                categoryIntent = new Intent(mContext, SpeciesActivity.class);
+                                categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+
+                            } else if (clickedItem instanceof Starship){
+                                categoryIntent = new Intent(mContext, StarshipActivity.class);
+                                categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+
+                            } else if (clickedItem instanceof Vehicle){
+                                categoryIntent = new Intent(mContext, VehicleActivity.class);
+                                categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+
+
+                            }
+
+                            mContext.startActivity(categoryIntent);
                         }
 
                     }

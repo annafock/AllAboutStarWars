@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.allaboutstarwars.Activities.CategoryActivity.EXTRA_STAR_WARS_OBJECT;
+import static com.example.allaboutstarwars.Adapters.MultiModelAdapter.EXTRA_STAR_WARS_OBJECT;
 
 /**
  * Created by anna on 3/27/18.

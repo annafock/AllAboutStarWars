@@ -13,7 +13,7 @@ import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.StarWarsObject;
 import com.example.allaboutstarwars.R;
 
-import static com.example.allaboutstarwars.Activities.CategoryActivity.EXTRA_STAR_WARS_OBJECT;
+import static com.example.allaboutstarwars.Adapters.MultiModelAdapter.EXTRA_STAR_WARS_OBJECT;
 
 import java.util.ArrayList;
 
