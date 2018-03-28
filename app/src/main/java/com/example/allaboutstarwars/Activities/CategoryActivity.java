@@ -135,38 +135,7 @@ public class CategoryActivity extends AppCompatActivity implements CategoryAdapt
 
     @Override
     public void onItemClicked(int position) {
-
-//        //Initiate object of the type the user clicked and send the object to a detail activity
-//        StarWarsObject clickedItem = (StarWarsObject) mStarWarsObjectList.get(position);
-//        Intent categoryIntent = new Intent();
-//
-//        if (clickedItem instanceof People){
-//            categoryIntent = new Intent(this, PeopleActivity.class);
-//            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-//        } else if (clickedItem instanceof Film){
-//            categoryIntent = new Intent(this, FilmActivity.class);
-//            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-//
-//        } else if (clickedItem instanceof Planet){
-//            categoryIntent = new Intent(this, PlanetActivity.class);
-//            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-//
-//        } else if (clickedItem instanceof Species){
-//            categoryIntent = new Intent(this, SpeciesActivity.class);
-//            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-//
-//        } else if (clickedItem instanceof Starship){
-//            categoryIntent = new Intent(this, StarshipActivity.class);
-//            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-//
-//        } else if (clickedItem instanceof Vehicle){
-//            categoryIntent = new Intent(this, VehicleActivity.class);
-//            categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
-//
-//
-//        }
-//
-//        startActivity(categoryIntent);
+    // Is set in Category adapter
     }
 
 }
