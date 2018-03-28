@@ -12,7 +12,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.allaboutstarwars.Adapters.FilmAdapter;
-import com.example.allaboutstarwars.Adapters.MultiModelAdapter;
+import com.example.allaboutstarwars.Adapters.CategoryAdapter;
 import com.example.allaboutstarwars.Adapters.PeopleAdapter;
 import com.example.allaboutstarwars.Adapters.PlanetAdapter;
 import com.example.allaboutstarwars.Adapters.SpeciesAdapter;
@@ -33,7 +33,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Map;
 
-public abstract class DetailActivity extends AppCompatActivity implements MultiModelAdapter.OnMultiModelItemClickListener,
+public abstract class DetailActivity extends AppCompatActivity implements CategoryAdapter.OnMultiModelItemClickListener,
         PeopleAdapter.OnItemClickListener, FilmAdapter.OnItemClickListener, PlanetAdapter.OnItemClickListener,
         SpeciesAdapter.OnItemClickListener, StarshipAdapter.OnItemClickListener, VehicleAdapter.OnItemClickListener {
 

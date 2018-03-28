@@ -13,7 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.allaboutstarwars.Adapters.MultiModelAdapter;
+import com.example.allaboutstarwars.Adapters.CategoryAdapter;
 import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
 import com.example.allaboutstarwars.Models.Planet;
@@ -36,13 +36,13 @@ import static com.example.allaboutstarwars.Adapters.MainAdapter.EXTRA_CATEGORY;
  * Created by anna on 3/20/18.
  */
 
-public class CategoryActivity extends AppCompatActivity implements MultiModelAdapter.OnMultiModelItemClickListener {
+public class CategoryActivity extends AppCompatActivity implements CategoryAdapter.OnMultiModelItemClickListener {
 
 
     String categoryName;
     private RecyclerView mRecyclerView;
     private TextView mTextViewTitle;
-    private MultiModelAdapter mMultiModelAdapter;
+    private CategoryAdapter mCategoryAdapter;
     private StarWarsObject starWarsObject;
     private ArrayList<StarWarsObject> mStarWarsObjectList;
     private RequestQueue mRequestQueue;
@@ -114,9 +114,9 @@ public class CategoryActivity extends AppCompatActivity implements MultiModelAda
 
                             }
 
-                            mMultiModelAdapter = new MultiModelAdapter(CategoryActivity.this, mStarWarsObjectList);
-                            mRecyclerView.setAdapter(mMultiModelAdapter);
-                            mMultiModelAdapter.setOnItemClickListener(CategoryActivity.this);
+                            mCategoryAdapter = new CategoryAdapter(CategoryActivity.this, mStarWarsObjectList);
+                            mRecyclerView.setAdapter(mCategoryAdapter);
+                            mCategoryAdapter.setOnItemClickListener(CategoryActivity.this);
 
                         } catch (JSONException e) {
                             e.printStackTrace();

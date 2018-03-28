@@ -29,7 +29,7 @@ import java.util.ArrayList;
  * Created by anna on 3/19/18.
  */
 
-public class MultiModelAdapter extends RecyclerView.Adapter {
+public class CategoryAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private ArrayList<StarWarsObject> mDataSet;
     int totalTypes;
@@ -44,7 +44,7 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
         mListener = listener;
     }
 
-    public MultiModelAdapter(Context context, ArrayList<StarWarsObject> dataSet){
+    public CategoryAdapter(Context context, ArrayList<StarWarsObject> dataSet){
 
         mContext = context;
         mDataSet = dataSet;
@@ -147,7 +147,7 @@ public class MultiModelAdapter extends RecyclerView.Adapter {
 
 
 
-    public MultiModelAdapter(ArrayList<StarWarsObject>data, Context context) {
+    public CategoryAdapter(ArrayList<StarWarsObject>data, Context context) {
         this.mDataSet = data;
         this.mContext = context;
         totalTypes = mDataSet.size();
