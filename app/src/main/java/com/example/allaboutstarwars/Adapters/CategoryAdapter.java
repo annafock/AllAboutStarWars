@@ -18,6 +18,7 @@ import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
 import com.example.allaboutstarwars.Models.Planet;
 import com.example.allaboutstarwars.Models.Species;
+import com.example.allaboutstarwars.Models.StarWarsHeader;
 import com.example.allaboutstarwars.Models.StarWarsObject;
 import com.example.allaboutstarwars.Models.Starship;
 import com.example.allaboutstarwars.Models.Vehicle;
@@ -117,12 +118,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         TextView textTypeHeader;
 
-
         public HeaderViewHolder(View itemView) {
             super(itemView);
 
             textTypeHeader = (TextView) itemView.findViewById(R.id.header_id);
-
 
         }
 
@@ -140,7 +139,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         if (viewType == TYPE_HEADER){
             View v = LayoutInflater.from(mContext).inflate(R.layout.header_layout, parent, false);
-            return new TextTypeViewHolder(v);
+            return new HeaderViewHolder(v);
 
         }else if (viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(mContext).inflate(R.layout.starwars_item, parent, false);
@@ -155,12 +154,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         StarWarsObject object = mDataSet.get(position);
 
+        //Set viewholder for Header
         if (holder instanceof HeaderViewHolder){
+            ((HeaderViewHolder) holder).textTypeHeader.setText(((StarWarsHeader) object).getHeaderTitle());
 
-
+            //Set viewholder for TextType
         } else if (holder instanceof TextTypeViewHolder){
 
-            //TODO find a way to make this a switch case - instanceof can't be used with switch
             if (object instanceof Film){
 
                 ((TextTypeViewHolder) holder).textType.setText(((Film) object).title);
@@ -198,10 +198,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         int viewType = 0;
 
         if (mDataSet.get(position) instanceof Film || mDataSet.get(position) instanceof People
-        || mDataSet.get(position) instanceof Planet || mDataSet.get(position) instanceof Species
+                || mDataSet.get(position) instanceof Planet || mDataSet.get(position) instanceof Species
                 || mDataSet.get(position) instanceof Starship || mDataSet.get(position) instanceof Vehicle){
             viewType= 1;
-        } else {
+        } else if(mDataSet.get(position) instanceof StarWarsHeader){
             viewType = 0;
         }
         return viewType;

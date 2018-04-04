@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.allaboutstarwars.Adapters.CategoryAdapter;
 import com.example.allaboutstarwars.LoadData;
+import com.example.allaboutstarwars.LoadData2;
 import com.example.allaboutstarwars.LoadDataCallback;
 import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
@@ -52,7 +53,7 @@ public class FilmActivity extends AppCompatActivity implements
         map.put(Starship.class,((Film) starWarsObject).starshipsUrls );
         map.put(Vehicle.class,((Film) starWarsObject).vehiclesUrls );
 
-        LoadData task = new LoadData(this);
+        LoadData2 task = new LoadData2(this);
         task.execute(map);
     }
 
