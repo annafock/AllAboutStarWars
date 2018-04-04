@@ -21,8 +21,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -78,6 +76,7 @@ public class LoadData extends AsyncTask<Map<Class, ArrayList<String>>, Integer, 
                         if (modelClass == Film.class) {
                             starWarsObject = gson.fromJson(object, Film.class);
                             starWarsObjectList.add(starWarsObject);
+
                         }else if(modelClass == People.class){
                             starWarsObject = gson.fromJson(object, People.class);
                             starWarsObjectList.add(starWarsObject);
@@ -113,15 +112,11 @@ public class LoadData extends AsyncTask<Map<Class, ArrayList<String>>, Integer, 
     }
 
 
-
-
-
     @Override
     protected void onProgressUpdate(Integer... values) {
         loadDataCallback.sendUpdate(values[0]);
 
     }
-
 
     @Override
     //runs on UI thread

@@ -44,13 +44,9 @@ import static com.example.allaboutstarwars.Adapters.MainAdapter.EXTRA_CATEGORY;
 public class CategoryActivity extends AppCompatActivity implements CategoryAdapter.OnMultiModelItemClickListener,
         LoadDataCallback{
 
-
     String categoryName;
     private RecyclerView mRecyclerView;
     private CategoryAdapter mCategoryAdapter;
-    private StarWarsObject starWarsObject;
-    private RequestQueue mRequestQueue;
-    Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -97,70 +93,8 @@ public class CategoryActivity extends AppCompatActivity implements CategoryAdapt
         LoadData task = new LoadData(this);
         task.execute(map);
 
-        //parseJSON();
     }
 
-//    private void parseJSON(){
-//        String url = "https://swapi.co/api/" + categoryName +"/";
-//
-//        gson = new Gson();
-//
-//        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//
-//                        try {
-//                            JSONArray jsonArray = response.getJSONArray("results");
-//
-//                            for (int i = 0; i < jsonArray.length(); i++){
-//                                String result = jsonArray.getJSONObject(i).toString();
-//
-//                                switch(categoryName){
-//                                    case "people":
-//                                        starWarsObject = gson.fromJson(result, People.class);
-//                                        break;
-//                                    case "films":
-//                                        starWarsObject = gson.fromJson(result, Film.class);
-//                                        break;
-//                                    case "planets":
-//                                        starWarsObject = gson.fromJson(result, Planet.class);
-//                                        break;
-//                                    case "species":
-//                                        starWarsObject = gson.fromJson(result, Species.class);
-//                                        break;
-//                                    case "starships":
-//                                        starWarsObject = gson.fromJson(result, Starship.class);
-//                                        break;
-//                                    case "vehicles":
-//                                        starWarsObject = gson.fromJson(result, Vehicle.class);
-//                                        break;
-//                                    default: break;
-//                                }
-//
-//                                mStarWarsObjectList.add(starWarsObject);
-//
-//
-//                            }
-//
-//                            mCategoryAdapter = new CategoryAdapter(CategoryActivity.this, mStarWarsObjectList);
-//                            mRecyclerView.setAdapter(mCategoryAdapter);
-//                            mCategoryAdapter.setOnItemClickListener(CategoryActivity.this);
-//
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                error.printStackTrace();
-//            }
-//        });
-//
-//        mRequestQueue.add(request);
-//    }
 
     @Override
     public void onItemClicked(int position) {
