@@ -41,8 +41,8 @@ import static com.example.allaboutstarwars.Adapters.MainAdapter.EXTRA_CATEGORY;
  * Created by anna on 3/20/18.
  */
 
-public class CategoryActivity extends AppCompatActivity implements CategoryAdapter.OnMultiModelItemClickListener,
-        LoadDataCallback{
+public class CategoryActivity extends AppCompatActivity implements
+        CategoryAdapter.OnMultiModelItemClickListener, LoadDataCallback{
 
     String categoryName;
     private RecyclerView mRecyclerView;

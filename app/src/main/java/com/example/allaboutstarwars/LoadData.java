@@ -1,7 +1,6 @@
 package com.example.allaboutstarwars;
 
 import android.os.AsyncTask;
-import android.widget.GridLayout;
 
 import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
@@ -11,7 +10,6 @@ import com.example.allaboutstarwars.Models.StarWarsObject;
 import com.example.allaboutstarwars.Models.Starship;
 import com.example.allaboutstarwars.Models.Vehicle;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,7 +48,7 @@ public class LoadData extends AsyncTask<Map<Class, ArrayList<String>>, Integer, 
 
         for (final Map.Entry<Class,ArrayList<String>> entry: maps[0].entrySet()){
             final Class modelClass = entry.getKey();
-            System.out.println("model class " + modelClass.toString());
+
             ArrayList<String> value = entry.getValue();
             for (String urlString : value){
                 url = urlString;
@@ -66,12 +64,12 @@ public class LoadData extends AsyncTask<Map<Class, ArrayList<String>>, Integer, 
 
                     String jsonData = response.body().string();
                     JSONObject jsonObject = new JSONObject(jsonData);
+
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
 
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         String object = jsonArray.getJSONObject(i).toString();
-                        System.out.println(object);
 
                         if (modelClass == Film.class) {
                             starWarsObject = gson.fromJson(object, Film.class);
