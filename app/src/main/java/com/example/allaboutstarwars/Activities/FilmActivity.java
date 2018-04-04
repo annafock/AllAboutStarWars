@@ -7,8 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.example.allaboutstarwars.Adapters.CategoryAdapter;
-import com.example.allaboutstarwars.LoadData;
-import com.example.allaboutstarwars.LoadData2;
+import com.example.allaboutstarwars.LoadObjectData;
 import com.example.allaboutstarwars.LoadDataCallback;
 import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
@@ -25,13 +24,10 @@ import java.util.Map;
 
 import static com.example.allaboutstarwars.Adapters.CategoryAdapter.EXTRA_STAR_WARS_OBJECT;
 
-public class FilmActivity extends AppCompatActivity implements
-        CategoryAdapter.OnMultiModelItemClickListener, LoadDataCallback {
+public class FilmActivity extends DetailActivity {
 
-    TextView mTextViewDetailTitle;
     private StarWarsObject starWarsObject;
-    private RecyclerView mRecyclerView;
-    private CategoryAdapter mCategoryAdapter;
+    TextView mTextViewDetailTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +37,6 @@ public class FilmActivity extends AppCompatActivity implements
         starWarsObject = (Film) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
 
         setContentView(R.layout.film);
-        mRecyclerView = (RecyclerView)findViewById(R.id.recycler_view_multi);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //Saves map of url:s with more relating info about this object
         Map<Class, ArrayList<String>> map = new HashMap<>();
@@ -53,7 +46,7 @@ public class FilmActivity extends AppCompatActivity implements
         map.put(Starship.class,((Film) starWarsObject).starshipsUrls );
         map.put(Vehicle.class,((Film) starWarsObject).vehiclesUrls );
 
-        LoadData2 task = new LoadData2(this);
+        LoadObjectData task = new LoadObjectData(this);
         task.execute(map);
     }
 
@@ -64,12 +57,10 @@ public class FilmActivity extends AppCompatActivity implements
 
     @Override
     public void onDataLoaded(ArrayList<StarWarsObject> starWarsArray) {
-        mTextViewDetailTitle = (TextView) findViewById(R.id.text_view_detail_title);
-        mTextViewDetailTitle.setText(((Film) starWarsObject).title);
+        super.onDataLoaded(starWarsArray);
 
-        mCategoryAdapter = new CategoryAdapter(FilmActivity.this, starWarsArray);
-        mRecyclerView.setAdapter(mCategoryAdapter);
-        mCategoryAdapter.setOnItemClickListener(FilmActivity.this);
+           mTextViewDetailTitle = (TextView) findViewById(R.id.text_view_detail_title);
+           mTextViewDetailTitle.setText(((Film) starWarsObject).title);
 
     }
 

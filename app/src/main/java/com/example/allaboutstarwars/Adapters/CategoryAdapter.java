@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.allaboutstarwars.Activities.FilmActivity;
+import com.example.allaboutstarwars.Activities.MainActivity;
 import com.example.allaboutstarwars.Activities.PeopleActivity;
 import com.example.allaboutstarwars.Activities.PlanetActivity;
 import com.example.allaboutstarwars.Activities.SpeciesActivity;
@@ -73,6 +74,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         int position = getAdapterPosition();
                         if(position!=RecyclerView.NO_POSITION){
                             mListener.onItemClicked(position);
+
+//                            if (mContext instanceof MainActivity){
+//
+//
+//
+//                            }
 
                             //Initiate object of the type the user clicked and send the object to a detail activity
                             StarWarsObject clickedItem = (StarWarsObject) mDataSet.get(position);

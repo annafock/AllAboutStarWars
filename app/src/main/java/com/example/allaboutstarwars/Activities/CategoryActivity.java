@@ -5,17 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
-import android.widget.Toolbar;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.allaboutstarwars.Adapters.CategoryAdapter;
-import com.example.allaboutstarwars.LoadData;
+import com.example.allaboutstarwars.LoadArrayData;
 import com.example.allaboutstarwars.LoadDataCallback;
 import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
@@ -25,11 +17,6 @@ import com.example.allaboutstarwars.Models.StarWarsObject;
 import com.example.allaboutstarwars.Models.Starship;
 import com.example.allaboutstarwars.Models.Vehicle;
 import com.example.allaboutstarwars.R;
-import com.google.gson.Gson;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,7 +77,7 @@ public class CategoryActivity extends AppCompatActivity implements
             default: break;
         }
 
-        LoadData task = new LoadData(this);
+        LoadArrayData task = new LoadArrayData(this);
         task.execute(map);
 
     }

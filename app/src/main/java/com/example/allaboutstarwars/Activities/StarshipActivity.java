@@ -1,8 +1,13 @@
 package com.example.allaboutstarwars.Activities;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.example.allaboutstarwars.Adapters.CategoryAdapter;
+import com.example.allaboutstarwars.LoadDataCallback;
+import com.example.allaboutstarwars.LoadObjectData;
 import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
 import com.example.allaboutstarwars.Models.StarWarsObject;
@@ -19,9 +24,12 @@ import static com.example.allaboutstarwars.Adapters.CategoryAdapter.EXTRA_STAR_W
  * Created by anna on 3/27/18.
  */
 
-public class StarshipActivity extends DetailActivity{
-    TextView mTextViewDetailTitle;
+public class StarshipActivity extends DetailActivity {
+
     private StarWarsObject starWarsObject;
+    private CategoryAdapter mCategoryAdapter;
+    TextView mTextViewDetailTitle;
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +45,26 @@ public class StarshipActivity extends DetailActivity{
         map.put(Film.class, ((Starship) starWarsObject).filmsUrls);
         map.put(People.class,((Starship) starWarsObject).pilots);
 
-        //Sets all the recyclerviews in this view
-        super.setRecyclerViewLayout(starWarsObject);
+        LoadObjectData task = new LoadObjectData(this);
+        task.execute(map);
 
-        //Populates all recyclerviews in this view
-        super.parseJSON(map);
+    }
 
+    @Override
+    public void onItemClicked(int position) {
+
+    }
+
+    @Override
+    public void onDataLoaded(ArrayList<StarWarsObject> starWarsArray) {
+        super.onDataLoaded(starWarsArray);
         mTextViewDetailTitle = (TextView) findViewById(R.id.text_view_detail_title);
         mTextViewDetailTitle.setText(((Starship) starWarsObject).name);
+
+    }
+
+    @Override
+    public void sendUpdate(int itemCount) {
 
     }
 }

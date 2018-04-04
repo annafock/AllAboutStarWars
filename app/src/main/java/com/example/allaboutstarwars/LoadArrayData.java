@@ -23,7 +23,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class LoadData extends AsyncTask<Map<Class, ArrayList<String>>, Integer, ArrayList<StarWarsObject>>{
+public class LoadArrayData extends AsyncTask<Map<Class, ArrayList<String>>, Integer, ArrayList<StarWarsObject>>{
 
     LoadDataCallback loadDataCallback;
     StarWarsObject starWarsObject;
@@ -31,7 +31,7 @@ public class LoadData extends AsyncTask<Map<Class, ArrayList<String>>, Integer, 
 
     OkHttpClient client = new OkHttpClient();
 
-    public LoadData(LoadDataCallback loadDataCallback) {
+    public LoadArrayData(LoadDataCallback loadDataCallback) {
         this.loadDataCallback = loadDataCallback;
     }
 
