@@ -32,6 +32,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.example.allaboutstarwars.Adapters.MainAdapter.EXTRA_CATEGORY;
 
@@ -62,12 +64,38 @@ public class CategoryActivity extends AppCompatActivity implements CategoryAdapt
         Intent intent = getIntent();
         categoryName = intent.getStringExtra(EXTRA_CATEGORY);
 
-        mRequestQueue = Volley.newRequestQueue(this);
+        String rootUrl = "https://swapi.co/api/";
+        ArrayList<String> urls = new ArrayList<>();
+        urls.add(rootUrl+categoryName);
 
-        String url = "https://swapi.co/api/" + categoryName;
+        //Saves map of url:s with more relating info about this object
+        Map<Class, ArrayList<String>> map = new HashMap<>();
+
+
+        switch(categoryName){
+            case "people":
+                map.put(People.class, urls);
+                break;
+            case "films":
+                map.put(Film.class, urls);
+                break;
+            case "planets":
+                map.put(Planet.class, urls);
+                break;
+            case "species":
+                map.put(Species.class, urls);
+                break;
+            case "starships":
+                map.put(Starship.class, urls);
+                break;
+            case "vehicles":
+                map.put(Vehicle.class, urls);
+                break;
+            default: break;
+        }
 
         LoadData task = new LoadData(this);
-        task.execute(url);
+        task.execute(map);
 
         //parseJSON();
     }

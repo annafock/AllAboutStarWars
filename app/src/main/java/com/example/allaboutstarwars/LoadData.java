@@ -1,9 +1,15 @@
 package com.example.allaboutstarwars;
 
 import android.os.AsyncTask;
+import android.widget.GridLayout;
 
+import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
+import com.example.allaboutstarwars.Models.Planet;
+import com.example.allaboutstarwars.Models.Species;
 import com.example.allaboutstarwars.Models.StarWarsObject;
+import com.example.allaboutstarwars.Models.Starship;
+import com.example.allaboutstarwars.Models.Vehicle;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -21,7 +27,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class LoadData extends AsyncTask<String, Integer, ArrayList<StarWarsObject>>{
+public class LoadData extends AsyncTask<Map<Class, ArrayList<String>>, Integer, ArrayList<StarWarsObject>>{
 
     LoadDataCallback loadDataCallback;
     StarWarsObject starWarsObject;
@@ -40,39 +46,75 @@ public class LoadData extends AsyncTask<String, Integer, ArrayList<StarWarsObjec
     }
 
     @Override
-    protected ArrayList<StarWarsObject> doInBackground(String ... params) {
-
+    protected ArrayList<StarWarsObject> doInBackground(Map<Class, ArrayList<String>>... maps) {
         final Gson gson = new Gson();
+        String url;
 
-        Request request = new Request.Builder()
-                .url(params[0])
-                .build();
+        for (final Map.Entry<Class,ArrayList<String>> entry: maps[0].entrySet()){
+            final Class modelClass = entry.getKey();
+            System.out.println("model class " + modelClass.toString());
+            ArrayList<String> value = entry.getValue();
+            for (String urlString : value){
+                url = urlString;
 
-        Response response = null;
+                Request request = new Request.Builder()
+                        .url(url)
+                        .build();
 
-        try {
-            response = client.newCall(request).execute();
+                Response response = null;
 
-            String jsonData = response.body().string();
-            JSONObject jsonObject = new JSONObject(jsonData);
-            JSONArray jsonArray = jsonObject.getJSONArray("result");
+                try {
+                    response = client.newCall(request).execute();
 
-            for (int i = 0; i < jsonArray.length(); i++) {
-                String object = jsonArray.getJSONObject(i).toString();
-                System.out.println(object);
+                    String jsonData = response.body().string();
+                    JSONObject jsonObject = new JSONObject(jsonData);
+                    JSONArray jsonArray = jsonObject.getJSONArray("results");
 
-                starWarsObject = gson.fromJson(object, StarWarsObject.class);
-                starWarsObjectList.add(starWarsObject);
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        String object = jsonArray.getJSONObject(i).toString();
+                        System.out.println(object);
+
+                        if (modelClass == Film.class) {
+                            starWarsObject = gson.fromJson(object, Film.class);
+                            starWarsObjectList.add(starWarsObject);
+                        }else if(modelClass == People.class){
+                            starWarsObject = gson.fromJson(object, People.class);
+                            starWarsObjectList.add(starWarsObject);
+
+                        }else if(modelClass == Planet.class){
+                            starWarsObject = gson.fromJson(object, Planet.class);
+                            starWarsObjectList.add(starWarsObject);
+
+                        }else if(modelClass == Species.class){
+                            starWarsObject = gson.fromJson(object, Species.class);
+                            starWarsObjectList.add(starWarsObject);
+
+                        }else if(modelClass == Starship.class){
+                            starWarsObject = gson.fromJson(object, Starship.class);
+                            starWarsObjectList.add(starWarsObject);
+
+                        }else if(modelClass == Vehicle.class){
+                            starWarsObject = gson.fromJson(object, Vehicle.class);
+                            starWarsObjectList.add(starWarsObject);
+                        }
+
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
 
         return starWarsObjectList;
     }
+
+
+
+
 
     @Override
     protected void onProgressUpdate(Integer... values) {
