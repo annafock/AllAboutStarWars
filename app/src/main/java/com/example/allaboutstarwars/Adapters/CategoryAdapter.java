@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.allaboutstarwars.Activities.CategoryActivity;
 import com.example.allaboutstarwars.Activities.FilmActivity;
 import com.example.allaboutstarwars.Activities.MainActivity;
 import com.example.allaboutstarwars.Activities.PeopleActivity;
@@ -15,6 +16,7 @@ import com.example.allaboutstarwars.Activities.PlanetActivity;
 import com.example.allaboutstarwars.Activities.SpeciesActivity;
 import com.example.allaboutstarwars.Activities.StarshipActivity;
 import com.example.allaboutstarwars.Activities.VehicleActivity;
+import com.example.allaboutstarwars.Models.Category;
 import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
 import com.example.allaboutstarwars.Models.Planet;
@@ -75,17 +77,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         if(position!=RecyclerView.NO_POSITION){
                             mListener.onItemClicked(position);
 
-//                            if (mContext instanceof MainActivity){
-//
-//
-//
-//                            }
 
                             //Initiate object of the type the user clicked and send the object to a detail activity
                             StarWarsObject clickedItem = (StarWarsObject) mDataSet.get(position);
                             Intent categoryIntent = new Intent();
 
-                            if (clickedItem instanceof People){
+                            if (clickedItem instanceof Category){
+                                categoryIntent = new Intent(mContext, CategoryActivity.class);
+                                categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+                            }else if (clickedItem instanceof People){
                                 categoryIntent = new Intent(mContext, PeopleActivity.class);
                                 categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
                             } else if (clickedItem instanceof Film){
@@ -168,7 +168,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             //Set viewholder for TextType
         } else if (holder instanceof TextTypeViewHolder){
 
-            if (object instanceof Film){
+            if (object instanceof Category){
+
+                ((TextTypeViewHolder) holder).textType.setText(((Category) object).name);
+
+            }else if (object instanceof Film){
 
                 ((TextTypeViewHolder) holder).textType.setText(((Film) object).title);
 
@@ -204,12 +208,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public int getItemViewType(int position){
         int viewType = 0;
 
-        if (mDataSet.get(position) instanceof Film || mDataSet.get(position) instanceof People
-                || mDataSet.get(position) instanceof Planet || mDataSet.get(position) instanceof Species
-                || mDataSet.get(position) instanceof Starship || mDataSet.get(position) instanceof Vehicle){
-            viewType= 1;
-        } else if(mDataSet.get(position) instanceof StarWarsHeader){
+        if(mDataSet.get(position) instanceof StarWarsHeader){
             viewType = 0;
+        } else
+        {
+            viewType= 1;
         }
         return viewType;
     }

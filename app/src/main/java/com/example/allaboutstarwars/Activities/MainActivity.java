@@ -5,30 +5,22 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.allaboutstarwars.Adapters.MainAdapter;
+import com.example.allaboutstarwars.Adapters.CategoryAdapter;
+import com.example.allaboutstarwars.LoadDataCallback;
+import com.example.allaboutstarwars.LoadObjectData;
 import com.example.allaboutstarwars.Models.Category;
+import com.example.allaboutstarwars.Models.StarWarsObject;
 import com.example.allaboutstarwars.R;
 
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements MainAdapter.OnItemClickListener{
+public class MainActivity extends AppCompatActivity implements LoadDataCallback, CategoryAdapter.OnMultiModelItemClickListener{
 
     private RecyclerView mRecyclerView;
-    private MainAdapter mMainAdapter;
-    private ArrayList<Category> mCategoryList;
-    private RequestQueue mRequestQueue;
+    private CategoryAdapter mCategoryAdapter;
 
 
     @Override
@@ -41,66 +33,35 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.OnIte
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mCategoryList = new ArrayList<>();
+        String rootUrl = "https://swapi.co/api/";
+        ArrayList<String> urls = new ArrayList<>();
+        urls.add(rootUrl);
 
-        mRequestQueue = Volley.newRequestQueue(this);
+        Map<Class, ArrayList<String>> map = new HashMap<>();
+        map.put(Category.class, urls);
 
-        parseJSON();
+        LoadObjectData task = new LoadObjectData(this);
+        task.execute(map);
 
     }
 
-    private void parseJSON(){
-        String url = "https://swapi.co/api/";
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONArray jsonArray = response.names();
-
-                            for (int i = 0; i < jsonArray.length(); i++){
-                                String hit = jsonArray.get(i).toString();
-                                mCategoryList.add(new Category(hit));
-                            }
-
-                            mMainAdapter = new MainAdapter(MainActivity.this, mCategoryList);
-                            mRecyclerView.setAdapter(mMainAdapter);
-                            mMainAdapter.setOnItemClickListener(MainActivity.this);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-        request.setRetryPolicy(new RetryPolicy() {
-            @Override
-            public int getCurrentTimeout() {
-                return 50000;
-            }
-
-            @Override
-            public int getCurrentRetryCount() {
-                return 50000;
-            }
-
-            @Override
-            public void retry(VolleyError error) throws VolleyError {
-
-            }
-        });
-
-        mRequestQueue.add(request);
-    }
 
     @Override
     public void onItemClicked(int position) {
     //Is set in MainAdapter
+    }
+
+    @Override
+    public void onDataLoaded(ArrayList<StarWarsObject> starWarsArray) {
+        mCategoryAdapter = new CategoryAdapter(this, starWarsArray);
+        mRecyclerView.setAdapter(mCategoryAdapter);
+        mCategoryAdapter.setOnItemClickListener(MainActivity.this);
+
+    }
+
+    @Override
+    public void sendUpdate(int itemCount) {
+
     }
 }
