@@ -3,6 +3,7 @@ package com.example.allaboutstarwars;
 import android.os.AsyncTask;
 
 import com.example.allaboutstarwars.Models.Category;
+import com.example.allaboutstarwars.Models.CategoryName;
 import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
 import com.example.allaboutstarwars.Models.Planet;
@@ -19,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -70,26 +72,25 @@ public class LoadObjectData extends AsyncTask<Map<Class, ArrayList<String>>, Int
                     response = client.newCall(request).execute();
 
                     String jsonData = response.body().string();
-                    System.out.println("jsondata " + jsonData);
                     JSONObject jsonObject = new JSONObject(jsonData);
 
                     String object = jsonObject.toString();
-                    System.out.println("object1 " + object);
 
                     if (modelClass == Category.class ) {
+                        CategoryName categoryName;
 
-                        int i;
-                        for (i=0; i < jsonObject.length(); i++){
-                            object = jsonObject.names().get(i).toString();
+                        starWarsObject = gson.fromJson(object, Category.class);
 
-                            //TODO change to be parsed with gson
-                            starWarsObjectList.add(new Category(object.toString()));
+                        //Loop through fields in category object and add each field to starwarsojbectlist
+                        Field[] fields = starWarsObject.getClass().getDeclaredFields();
 
-                            //TODO parse this right!!
-                           // starWarsObject = gson.fromJson(object, Category.class);
-
-                            //starWarsObjectList.add(starWarsObject);
+                        for (Field f: fields){
+                            System.out.println("f " + f);
+                            categoryName = new CategoryName(f.getName());
+                            System.out.println("categoryName " + categoryName.getCategoryName());
+                            starWarsObjectList.add(categoryName);
                         }
+
 
                     }else if (modelClass == Film.class) {
                         starWarsObject = gson.fromJson(object, Film.class);

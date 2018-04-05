@@ -10,22 +10,22 @@ import com.google.gson.annotations.SerializedName;
 public class Category extends StarWarsObject{
 
     @SerializedName("films")
-    public String film;
+    public String films;
 
     @SerializedName("people")
     public String people;
 
     @SerializedName("planets")
-    public String planet;
+    public String planets;
 
     @SerializedName("species")
     public String species;
 
     @SerializedName("starships")
-    public String starship;
+    public String starships;
 
     @SerializedName("vehicles")
-    public String vehicle;
+    public String vehicles;
 
 
 }

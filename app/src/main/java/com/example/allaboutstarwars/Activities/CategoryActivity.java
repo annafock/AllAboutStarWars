@@ -10,6 +10,7 @@ import com.example.allaboutstarwars.Adapters.CategoryAdapter;
 import com.example.allaboutstarwars.LoadArrayData;
 import com.example.allaboutstarwars.LoadDataCallback;
 import com.example.allaboutstarwars.Models.Category;
+import com.example.allaboutstarwars.Models.CategoryName;
 import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
 import com.example.allaboutstarwars.Models.Planet;
@@ -46,20 +47,17 @@ public class CategoryActivity extends AppCompatActivity implements
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //TODO find why this isn't parsing directly (might be because of not gson parsed in loadObject
-        starWarsObject = (Category) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
-        Category category = (Category) starWarsObject;
-        category.getName();
+        starWarsObject = (CategoryName) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
 
         String rootUrl = "https://swapi.co/api/";
         ArrayList<String> urls = new ArrayList<>();
-        urls.add(rootUrl+category.getName());
+        urls.add(rootUrl+((CategoryName) starWarsObject).getCategoryName());
 
         //Saves map of url:s with more relating info about this object
         Map<Class, ArrayList<String>> map = new HashMap<>();
 
 
-        switch(category.getName()){
+        switch(((CategoryName) starWarsObject).getCategoryName()){
             case "people":
                 map.put(People.class, urls);
                 break;

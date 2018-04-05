@@ -10,13 +10,12 @@ import android.widget.TextView;
 
 import com.example.allaboutstarwars.Activities.CategoryActivity;
 import com.example.allaboutstarwars.Activities.FilmActivity;
-import com.example.allaboutstarwars.Activities.MainActivity;
 import com.example.allaboutstarwars.Activities.PeopleActivity;
 import com.example.allaboutstarwars.Activities.PlanetActivity;
 import com.example.allaboutstarwars.Activities.SpeciesActivity;
 import com.example.allaboutstarwars.Activities.StarshipActivity;
 import com.example.allaboutstarwars.Activities.VehicleActivity;
-import com.example.allaboutstarwars.Models.Category;
+import com.example.allaboutstarwars.Models.CategoryName;
 import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
 import com.example.allaboutstarwars.Models.Planet;
@@ -82,7 +81,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                             StarWarsObject clickedItem = (StarWarsObject) mDataSet.get(position);
                             Intent categoryIntent = new Intent();
 
-                            if (clickedItem instanceof Category){
+                            if (clickedItem instanceof CategoryName){
                                 categoryIntent = new Intent(mContext, CategoryActivity.class);
                                 categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
                             }else if (clickedItem instanceof People){
@@ -168,9 +167,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             //Set viewholder for TextType
         } else if (holder instanceof TextTypeViewHolder){
 
-            if (object instanceof Category){
+            if (object instanceof CategoryName){
 
-                ((TextTypeViewHolder) holder).textType.setText(((Category) object).name);
+                ((TextTypeViewHolder) holder).textType.setText(((CategoryName) object).getCategoryName());
 
             }else if (object instanceof Film){
 
@@ -208,6 +207,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public int getItemViewType(int position){
         int viewType = 0;
 
+        //If viewtype is header set viewtype to 0, otherwise to 1
         if(mDataSet.get(position) instanceof StarWarsHeader){
             viewType = 0;
         } else
