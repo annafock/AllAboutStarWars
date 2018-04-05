@@ -8,20 +8,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.allaboutstarwars.Activities.CategoryActivity;
 import com.example.allaboutstarwars.Activities.FilmActivity;
 import com.example.allaboutstarwars.Activities.PeopleActivity;
 import com.example.allaboutstarwars.Activities.PlanetActivity;
 import com.example.allaboutstarwars.Activities.SpeciesActivity;
 import com.example.allaboutstarwars.Activities.StarshipActivity;
 import com.example.allaboutstarwars.Activities.VehicleActivity;
+import com.example.allaboutstarwars.Models.CategoryName;
 import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
 import com.example.allaboutstarwars.Models.Planet;
 import com.example.allaboutstarwars.Models.Species;
+import com.example.allaboutstarwars.Models.StarWarsHeader;
 import com.example.allaboutstarwars.Models.StarWarsObject;
 import com.example.allaboutstarwars.Models.Starship;
 import com.example.allaboutstarwars.Models.Vehicle;
 import com.example.allaboutstarwars.R;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -29,12 +34,14 @@ import java.util.ArrayList;
  * Created by anna on 3/19/18.
  */
 
-public class CategoryAdapter extends RecyclerView.Adapter {
+public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private Context mContext;
     private ArrayList<StarWarsObject> mDataSet;
     int totalTypes;
     private OnMultiModelItemClickListener mListener;
     public static final String EXTRA_STAR_WARS_OBJECT = "star wars object";
+    private static final int TYPE_HEADER = 0;
+    private static final int TYPE_ITEM = 1;
 
     public interface OnMultiModelItemClickListener {
         void onItemClicked(int position);
@@ -52,7 +59,7 @@ public class CategoryAdapter extends RecyclerView.Adapter {
 
     public class TextTypeViewHolder extends RecyclerView.ViewHolder{
 
-        TextView textType, textTypeName;
+        TextView textType;
 
 
         public TextTypeViewHolder(View itemView) {
@@ -69,11 +76,15 @@ public class CategoryAdapter extends RecyclerView.Adapter {
                         if(position!=RecyclerView.NO_POSITION){
                             mListener.onItemClicked(position);
 
+
                             //Initiate object of the type the user clicked and send the object to a detail activity
                             StarWarsObject clickedItem = (StarWarsObject) mDataSet.get(position);
                             Intent categoryIntent = new Intent();
 
-                            if (clickedItem instanceof People){
+                            if (clickedItem instanceof CategoryName){
+                                categoryIntent = new Intent(mContext, CategoryActivity.class);
+                                categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
+                            }else if (clickedItem instanceof People){
                                 categoryIntent = new Intent(mContext, PeopleActivity.class);
                                 categoryIntent.putExtra(EXTRA_STAR_WARS_OBJECT, clickedItem);
                             } else if (clickedItem instanceof Film){
@@ -109,42 +120,18 @@ public class CategoryAdapter extends RecyclerView.Adapter {
 
     }
 
-    public class TextTypeViewHolderFilm extends RecyclerView.ViewHolder{
+    public class HeaderViewHolder extends RecyclerView.ViewHolder{
 
-        TextView textTypeFilm, textTypeName;
+        TextView textTypeHeader;
 
-
-        public TextTypeViewHolderFilm(View itemView) {
+        public HeaderViewHolder(View itemView) {
             super(itemView);
 
-            textTypeFilm = (TextView) itemView.findViewById(R.id.text_view_category);
+            textTypeHeader = (TextView) itemView.findViewById(R.id.header_id);
 
-            //This is often set in ionBindViewHolder but it takes less cost to put it here
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(mListener!=null){
-                        int position = getAdapterPosition();
-                        if(position!=RecyclerView.NO_POSITION){
-                            mListener.onItemClicked(position);
-                        }
-
-                    }
-                }
-            });
         }
 
     }
-
-    @Override
-    public int getItemViewType(int position){
-        int viewType = 0;
-        if (mDataSet.get(position) instanceof Film){
-            viewType= 0;
-        }
-    return viewType;
-    }
-
 
 
     public CategoryAdapter(ArrayList<StarWarsObject>data, Context context) {
@@ -156,9 +143,16 @@ public class CategoryAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(mContext).inflate(R.layout.starwars_item, parent, false);
+        if (viewType == TYPE_HEADER){
+            View v = LayoutInflater.from(mContext).inflate(R.layout.header_layout, parent, false);
+            return new HeaderViewHolder(v);
 
-        return new TextTypeViewHolder(v);
+        }else if (viewType == TYPE_ITEM) {
+            View v = LayoutInflater.from(mContext).inflate(R.layout.starwars_item, parent, false);
+            return new TextTypeViewHolder(v);
+        }
+
+        throw new RuntimeException("No match for " + viewType + ".");
     }
 
     @Override
@@ -166,36 +160,61 @@ public class CategoryAdapter extends RecyclerView.Adapter {
 
         StarWarsObject object = mDataSet.get(position);
 
-        //TODO find a way to make this a switch case - instanceof can't be used with switch
-        if (object instanceof Film){
+        //Set viewholder for Header
+        if (holder instanceof HeaderViewHolder){
+            ((HeaderViewHolder) holder).textTypeHeader.setText(((StarWarsHeader) object).getHeaderTitle());
 
-            ((TextTypeViewHolder) holder).textType.setText(((Film) object).title);
+            //Set viewholder for TextType
+        } else if (holder instanceof TextTypeViewHolder){
 
-        }else if(object instanceof People) {
+            if (object instanceof CategoryName){
 
-            ((TextTypeViewHolder) holder).textType.setText(((People) object).name);
+                ((TextTypeViewHolder) holder).textType.setText(((CategoryName) object).getCategoryName());
 
-        }else if(object instanceof Planet) {
+            }else if (object instanceof Film){
 
-            ((TextTypeViewHolder) holder).textType.setText(((Planet) object).name);
+                ((TextTypeViewHolder) holder).textType.setText(((Film) object).title);
 
-        }else if(object instanceof Species) {
+            }else if(object instanceof People) {
 
-            ((TextTypeViewHolder) holder).textType.setText(((Species) object).name);
+                ((TextTypeViewHolder) holder).textType.setText(((People) object).name);
 
-        }else if(object instanceof Starship) {
+            }else if(object instanceof Planet) {
 
-            ((TextTypeViewHolder) holder).textType.setText(((Starship) object).name);
+                ((TextTypeViewHolder) holder).textType.setText(((Planet) object).name);
 
-        }else if(object instanceof Vehicle) {
+            }else if(object instanceof Species) {
 
-            ((TextTypeViewHolder) holder).textType.setText(((Vehicle) object).name);
+                ((TextTypeViewHolder) holder).textType.setText(((Species) object).name);
+
+            }else if(object instanceof Starship) {
+
+                ((TextTypeViewHolder) holder).textType.setText(((Starship) object).name);
+
+            }else if(object instanceof Vehicle) {
+
+                ((TextTypeViewHolder) holder).textType.setText(((Vehicle) object).name);
+            }
         }
     }
 
     @Override
     public int getItemCount() {
         return mDataSet.size();
+    }
+
+    @Override
+    public int getItemViewType(int position){
+        int viewType = 0;
+
+        //If viewtype is header set viewtype to 0, otherwise to 1
+        if(mDataSet.get(position) instanceof StarWarsHeader){
+            viewType = 0;
+        } else
+        {
+            viewType= 1;
+        }
+        return viewType;
     }
 
 }

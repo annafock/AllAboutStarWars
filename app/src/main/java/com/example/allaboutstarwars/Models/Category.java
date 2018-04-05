@@ -1,18 +1,31 @@
 package com.example.allaboutstarwars.Models;
 
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by anna on 3/20/18.
  */
 
-public class Category{
-    String item;
+public class Category extends StarWarsObject{
 
-    public Category(String item){
-        this.item = item;
-    }
+    @SerializedName("films")
+    public String films;
 
-    public String getItem() {
-        return item;
-    }
+    @SerializedName("people")
+    public String people;
+
+    @SerializedName("planets")
+    public String planets;
+
+    @SerializedName("species")
+    public String species;
+
+    @SerializedName("starships")
+    public String starships;
+
+    @SerializedName("vehicles")
+    public String vehicles;
+
+
 }

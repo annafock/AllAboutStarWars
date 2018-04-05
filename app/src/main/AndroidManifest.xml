@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.MainActivity">
+        <activity android:name=".Activities.MainActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTop">>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,19 +22,33 @@
         </activity>
         <activity
             android:name=".Activities.CategoryActivity"
-            android:parentActivityName=".Activities.MainActivity">
+            android:parentActivityName=".Activities.MainActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTop">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activities.MainActivity" />
         </activity>
-        <activity android:name=".Activities.FilmActivity"></activity>
-        <activity android:name=".Activities.PeopleActivity"></activity>
-        <activity android:name=".Activities.PlanetActivity"></activity>
-        <activity android:name=".Activities.SpeciesActivity"></activity>
-        <activity android:name=".Activities.StarshipActivity"></activity>
-        <activity android:name=".Activities.VehicleActivity"></activity>
+        <activity android:name=".Activities.FilmActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTop"></activity>
+        <activity android:name=".Activities.PeopleActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTop"></activity>
+        <activity android:name=".Activities.PlanetActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTop"></activity>
+        <activity android:name=".Activities.SpeciesActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTop"></activity>
+        <activity android:name=".Activities.StarshipActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTop"></activity>
+        <activity android:name=".Activities.VehicleActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTop"></activity>
     </application>
 
 </manifest>
