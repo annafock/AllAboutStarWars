@@ -1,12 +1,8 @@
 package com.example.allaboutstarwars.Activities;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
-import com.example.allaboutstarwars.Adapters.CategoryAdapter;
-import com.example.allaboutstarwars.LoadDataCallback;
 import com.example.allaboutstarwars.LoadObjectData;
 import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
@@ -35,7 +31,7 @@ public class SpeciesActivity extends DetailActivity {
 
         //Recieves object from categoriy activity
         starWarsObject = (Species) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
-        setContentView(R.layout.species);
+        setContentView(R.layout.activity_category_item);
 
         //Saves map of url:s with more relating info about this object
         Map<Class, ArrayList<String>> map = new HashMap<>();

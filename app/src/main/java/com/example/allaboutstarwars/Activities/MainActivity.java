@@ -26,7 +26,7 @@ public class MainActivity extends DetailActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_category);
 
         String rootUrl = "https://swapi.co/api/";
         ArrayList<String> urls = new ArrayList<>();
