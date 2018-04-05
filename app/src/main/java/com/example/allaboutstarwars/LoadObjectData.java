@@ -95,8 +95,11 @@ public class LoadObjectData extends AsyncTask<Map<Class, ArrayList<String>>, Int
                         Field[] fields = starWarsObject.getClass().getDeclaredFields();
 
                         for (Field f: fields){
-                            categoryName = new CategoryName(f.getName());
-                            starWarsObjectList.add(categoryName);
+                            String name = f.getName();
+                            if (!name.startsWith("$") && !name.startsWith("serialVersion")){
+                                categoryName = new CategoryName(f.getName());
+                                starWarsObjectList.add(categoryName);
+                            }
                         }
 
                     /*TODO find right statement to separate items from categoryactivity from other activites
