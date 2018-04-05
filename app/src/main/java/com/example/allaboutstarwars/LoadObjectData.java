@@ -88,9 +88,7 @@ public class LoadObjectData extends AsyncTask<Map<Class, ArrayList<String>>, Int
                             //TODO parse this right!!
                            // starWarsObject = gson.fromJson(object, Category.class);
 
-
-
-                            starWarsObjectList.add(starWarsObject);
+                            //starWarsObjectList.add(starWarsObject);
                         }
 
                     }else if (modelClass == Film.class) {

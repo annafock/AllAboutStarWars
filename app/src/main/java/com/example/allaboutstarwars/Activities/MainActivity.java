@@ -49,14 +49,17 @@ public class MainActivity extends AppCompatActivity implements LoadDataCallback,
 
     @Override
     public void onItemClicked(int position) {
-    //Is set in MainAdapter
+        //Is set in MainAdapter
     }
 
     @Override
     public void onDataLoaded(ArrayList<StarWarsObject> starWarsArray) {
-        mCategoryAdapter = new CategoryAdapter(this, starWarsArray);
-        mRecyclerView.setAdapter(mCategoryAdapter);
-        mCategoryAdapter.setOnItemClickListener(MainActivity.this);
+
+        if (0!=starWarsArray.size()){
+            mCategoryAdapter = new CategoryAdapter(this, starWarsArray);
+            mRecyclerView.setAdapter(mCategoryAdapter);
+            mCategoryAdapter.setOnItemClickListener(MainActivity.this);
+        }
 
     }
 
