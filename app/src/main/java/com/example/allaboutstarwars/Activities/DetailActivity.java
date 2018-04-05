@@ -20,7 +20,6 @@ public abstract class DetailActivity extends AppCompatActivity implements
 
     private CategoryAdapter mCategoryAdapter;
     private RecyclerView mRecyclerView;
-    Date currentTime = Calendar.getInstance().getTime();
 
 
     @Override

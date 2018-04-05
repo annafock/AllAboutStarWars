@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements LoadDataCallback, CategoryAdapter.OnMultiModelItemClickListener{
+public class MainActivity extends DetailActivity{
 
     private RecyclerView mRecyclerView;
     private CategoryAdapter mCategoryAdapter;
@@ -27,11 +27,6 @@ public class MainActivity extends AppCompatActivity implements LoadDataCallback,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        mRecyclerView = (RecyclerView)findViewById(R.id.recycler_view_category);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         String rootUrl = "https://swapi.co/api/";
         ArrayList<String> urls = new ArrayList<>();
@@ -54,12 +49,7 @@ public class MainActivity extends AppCompatActivity implements LoadDataCallback,
 
     @Override
     public void onDataLoaded(ArrayList<StarWarsObject> starWarsArray) {
-
-        if (0!=starWarsArray.size()){
-            mCategoryAdapter = new CategoryAdapter(this, starWarsArray);
-            mRecyclerView.setAdapter(mCategoryAdapter);
-            mCategoryAdapter.setOnItemClickListener(MainActivity.this);
-        }
+        super.onDataLoaded(starWarsArray);
 
     }
 
