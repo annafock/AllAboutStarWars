@@ -1,6 +1,7 @@
 package com.example.allaboutstarwars;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.allaboutstarwars.Models.Category;
 import com.example.allaboutstarwars.Models.CategoryName;
@@ -22,6 +23,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 import okhttp3.OkHttpClient;
@@ -33,6 +36,7 @@ public class LoadObjectData extends AsyncTask<Map<Class, ArrayList<String>>, Int
     LoadDataCallback loadDataCallback;
     StarWarsObject starWarsObject;
     ArrayList<StarWarsObject> starWarsObjectList;
+    Date currentTime = Calendar.getInstance().getTime();
 
     OkHttpClient client = new OkHttpClient();
 
@@ -51,6 +55,8 @@ public class LoadObjectData extends AsyncTask<Map<Class, ArrayList<String>>, Int
         final Gson gson = new Gson();
         String url;
 
+        Log.d("Before request" + this.getClass(), "message");
+
         for (final Map.Entry<Class,ArrayList<String>> entry: maps[0].entrySet()){
 
             final Class modelClass = entry.getKey();
@@ -68,6 +74,7 @@ public class LoadObjectData extends AsyncTask<Map<Class, ArrayList<String>>, Int
 
                 Response response = null;
 
+
                 try {
                     response = client.newCall(request).execute();
 
@@ -76,23 +83,36 @@ public class LoadObjectData extends AsyncTask<Map<Class, ArrayList<String>>, Int
 
                     String object = jsonObject.toString();
 
+                    //Gets content from root api
                     if (modelClass == Category.class ) {
                         CategoryName categoryName;
 
                         starWarsObject = gson.fromJson(object, Category.class);
 
-                        //Loop through fields in category object and add each field to starwarsojbectlist
+                       /* Loop through fields in category object, create new CategoryName class
+                       of each object and add to starWarsObjectList
+                       * */
                         Field[] fields = starWarsObject.getClass().getDeclaredFields();
 
                         for (Field f: fields){
-                            System.out.println("f " + f);
                             categoryName = new CategoryName(f.getName());
-                            System.out.println("categoryName " + categoryName.getCategoryName());
                             starWarsObjectList.add(categoryName);
                         }
 
+                    /*TODO find right statement to separate items from categoryactivity from other activites
+                         since these items retrieves data from name: results in the api
+                         for now they are handled in LoadArrayData class*/
 
-                    }else if (modelClass == Film.class) {
+//                    }else if(modelClass == CategoryName.class){
+//                        JSONArray jsonArray = jsonObject.getJSONArray("results");
+//
+//                        for (int i = 0; i < jsonArray.length(); i++) {
+//                            object = jsonArray.getJSONObject(i).toString();
+//
+//                        }
+
+
+                    } if (modelClass == Film.class) {
                         starWarsObject = gson.fromJson(object, Film.class);
                         starWarsObjectList.add(starWarsObject);
 
@@ -118,14 +138,14 @@ public class LoadObjectData extends AsyncTask<Map<Class, ArrayList<String>>, Int
                     }
 
 
-                } catch (IOException | IllegalStateException | JsonSyntaxException e ) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
+                } catch (IOException | IllegalStateException | JsonSyntaxException | JSONException e ) {
                     e.printStackTrace();
                 }
+
+
             }
         }
-
+        Log.d("After request" + this.getClass(), "message");
         return starWarsObjectList;
     }
 

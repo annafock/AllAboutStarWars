@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import com.example.allaboutstarwars.Adapters.CategoryAdapter;
 import com.example.allaboutstarwars.LoadArrayData;
 import com.example.allaboutstarwars.LoadDataCallback;
+import com.example.allaboutstarwars.LoadObjectData;
 import com.example.allaboutstarwars.Models.Category;
 import com.example.allaboutstarwars.Models.CategoryName;
 import com.example.allaboutstarwars.Models.Film;
@@ -30,13 +31,10 @@ import static com.example.allaboutstarwars.Adapters.CategoryAdapter.EXTRA_STAR_W
  * Created by anna on 3/20/18.
  */
 
-public class CategoryActivity extends AppCompatActivity implements
-        CategoryAdapter.OnMultiModelItemClickListener, LoadDataCallback{
+public class CategoryActivity extends DetailActivity{
 
     private StarWarsObject starWarsObject;
-    String categoryName;
     private RecyclerView mRecyclerView;
-    private CategoryAdapter mCategoryAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -92,14 +90,13 @@ public class CategoryActivity extends AppCompatActivity implements
 
     @Override
     public void onDataLoaded(ArrayList<StarWarsObject> starWarsArray) {
-        mCategoryAdapter = new CategoryAdapter(CategoryActivity.this, starWarsArray);
-        mRecyclerView.setAdapter(mCategoryAdapter);
-        mCategoryAdapter.setOnItemClickListener(CategoryActivity.this);
+        super.onDataLoaded(starWarsArray);
 
     }
 
     @Override
     public void sendUpdate(int itemCount) {
+        super.sendUpdate(itemCount);
 
     }
 }

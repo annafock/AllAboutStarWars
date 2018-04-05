@@ -1,6 +1,7 @@
 package com.example.allaboutstarwars;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
@@ -17,6 +18,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 import okhttp3.OkHttpClient;
@@ -28,6 +31,7 @@ public class LoadArrayData extends AsyncTask<Map<Class, ArrayList<String>>, Inte
     LoadDataCallback loadDataCallback;
     StarWarsObject starWarsObject;
     ArrayList<StarWarsObject> starWarsObjectList;
+    Date currentTime = Calendar.getInstance().getTime();
 
     OkHttpClient client = new OkHttpClient();
 
@@ -46,6 +50,7 @@ public class LoadArrayData extends AsyncTask<Map<Class, ArrayList<String>>, Inte
         final Gson gson = new Gson();
         String url;
 
+        Log.d("Before request" + this.getClass(), "message");
         for (final Map.Entry<Class,ArrayList<String>> entry: maps[0].entrySet()){
             final Class modelClass = entry.getKey();
 
@@ -53,11 +58,14 @@ public class LoadArrayData extends AsyncTask<Map<Class, ArrayList<String>>, Inte
             for (String urlString : value){
                 url = urlString;
 
+
+
                 Request request = new Request.Builder()
                         .url(url)
                         .build();
 
                 Response response = null;
+
 
                 try {
                     response = client.newCall(request).execute();
@@ -98,14 +106,13 @@ public class LoadArrayData extends AsyncTask<Map<Class, ArrayList<String>>, Inte
 
                     }
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
+                } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
+
             }
         }
-
+        Log.d("After request" + this.getClass(), "message");
         return starWarsObjectList;
     }
 

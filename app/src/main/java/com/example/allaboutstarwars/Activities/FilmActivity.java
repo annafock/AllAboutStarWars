@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.allaboutstarwars.Adapters.CategoryAdapter;
@@ -46,6 +47,7 @@ public class FilmActivity extends DetailActivity {
         map.put(Starship.class,((Film) starWarsObject).starshipsUrls );
         map.put(Vehicle.class,((Film) starWarsObject).vehiclesUrls );
 
+        
         LoadObjectData task = new LoadObjectData(this);
         task.execute(map);
     }
