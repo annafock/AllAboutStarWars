@@ -53,7 +53,7 @@ public class PlanetActivity extends DetailActivity {
     public void onDataLoaded(ArrayList<StarWarsObject> starWarsArray) {
         super.onDataLoaded(starWarsArray);
 
-        mTextViewDetailTitle = (TextView) findViewById(R.id.text_view_detail_title);
+        mTextViewDetailTitle = (TextView) findViewById(R.id.text_view_detail_header);
         mTextViewDetailTitle.setText(((Planet) starWarsObject).name);
 
     }

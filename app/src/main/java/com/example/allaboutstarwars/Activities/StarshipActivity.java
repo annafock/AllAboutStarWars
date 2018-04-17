@@ -56,7 +56,7 @@ public class StarshipActivity extends DetailActivity {
     @Override
     public void onDataLoaded(ArrayList<StarWarsObject> starWarsArray) {
         super.onDataLoaded(starWarsArray);
-        mTextViewDetailTitle = (TextView) findViewById(R.id.text_view_detail_title);
+        mTextViewDetailTitle = (TextView) findViewById(R.id.text_view_detail_header);
         mTextViewDetailTitle.setText(((Starship) starWarsObject).name);
 
     }
