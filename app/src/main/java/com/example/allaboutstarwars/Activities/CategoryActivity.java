@@ -2,15 +2,9 @@ package com.example.allaboutstarwars.Activities;
 
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
-import com.example.allaboutstarwars.Adapters.CategoryAdapter;
 import com.example.allaboutstarwars.LoadArrayData;
-import com.example.allaboutstarwars.LoadDataCallback;
-import com.example.allaboutstarwars.LoadObjectData;
-import com.example.allaboutstarwars.Models.Category;
 import com.example.allaboutstarwars.Models.CategoryName;
 import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
@@ -47,6 +41,7 @@ public class CategoryActivity extends DetailActivity{
 
         starWarsObject = (CategoryName) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
 
+
         String rootUrl = "https://swapi.co/api/";
         ArrayList<String> urls = new ArrayList<>();
         urls.add(rootUrl+((CategoryName) starWarsObject).getCategoryName());
@@ -54,8 +49,8 @@ public class CategoryActivity extends DetailActivity{
         //Saves map of url:s with more relating info about this object
         Map<Class, ArrayList<String>> map = new HashMap<>();
 
-
-        switch(((CategoryName) starWarsObject).getCategoryName()){
+        //TODO make enum class with these categories
+        switch(((CategoryName) starWarsObject).getCategoryName().toLowerCase()){
             case "people":
                 map.put(People.class, urls);
                 break;
@@ -91,6 +86,9 @@ public class CategoryActivity extends DetailActivity{
     @Override
     public void onDataLoaded(ArrayList<StarWarsObject> starWarsArray) {
         super.onDataLoaded(starWarsArray);
+        String categoryName = ((CategoryName) starWarsObject).getCategoryName();
+        String categoryNameUppercase = categoryName.substring(0, 1).toUpperCase() + categoryName.substring(1);
+        setTitle(categoryNameUppercase);
 
     }
 

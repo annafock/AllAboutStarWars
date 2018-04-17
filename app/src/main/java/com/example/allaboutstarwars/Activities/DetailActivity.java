@@ -15,8 +15,6 @@ import com.example.allaboutstarwars.Models.StarWarsObject;
 import com.example.allaboutstarwars.R;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 public abstract class DetailActivity extends AppCompatActivity implements
         CategoryAdapter.OnMultiModelItemClickListener, LoadDataCallback {
@@ -29,6 +27,8 @@ public abstract class DetailActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+
+        setContentView(R.layout.activity_category);
 
     }
 

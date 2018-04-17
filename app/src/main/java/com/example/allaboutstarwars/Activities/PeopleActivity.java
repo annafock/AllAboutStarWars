@@ -1,10 +1,6 @@
 package com.example.allaboutstarwars.Activities;
 
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
-
-import com.example.allaboutstarwars.Adapters.CategoryAdapter;
 import com.example.allaboutstarwars.LoadObjectData;
 import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
@@ -12,7 +8,6 @@ import com.example.allaboutstarwars.Models.Species;
 import com.example.allaboutstarwars.Models.StarWarsObject;
 import com.example.allaboutstarwars.Models.Starship;
 import com.example.allaboutstarwars.Models.Vehicle;
-import com.example.allaboutstarwars.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,10 +17,7 @@ import static com.example.allaboutstarwars.Adapters.CategoryAdapter.EXTRA_STAR_W
 
 public class PeopleActivity extends DetailActivity {
 
-    TextView mTextViewDetailTitle;
     private StarWarsObject starWarsObject;
-    private RecyclerView mRecyclerView;
-    private CategoryAdapter mCategoryAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +25,6 @@ public class PeopleActivity extends DetailActivity {
 
         //Recieves object from categoriy activity
         starWarsObject = (People) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
-
-        setContentView(R.layout.activity_category_item);
 
         //Saves map of url:s with more relating info about this object
         Map<Class, ArrayList<String>> map = new HashMap<>();
@@ -56,9 +46,7 @@ public class PeopleActivity extends DetailActivity {
     @Override
     public void onDataLoaded(ArrayList<StarWarsObject> starWarsArray) {
         super.onDataLoaded(starWarsArray);
-
-        mTextViewDetailTitle = (TextView) findViewById(R.id.text_view_detail_header);
-        mTextViewDetailTitle.setText(((People) starWarsObject).name);
+        setTitle(((People) starWarsObject).name);
     }
 
     @Override

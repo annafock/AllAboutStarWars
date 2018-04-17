@@ -168,8 +168,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } else if (holder instanceof TextTypeViewHolder){
 
             if (object instanceof CategoryName){
+                String categoryName = ((CategoryName) object).getCategoryName();
+                String categoryNameUppercase = categoryName.substring(0, 1).toUpperCase() + categoryName.substring(1);
 
-                ((TextTypeViewHolder) holder).textType.setText(((CategoryName) object).getCategoryName());
+                ((TextTypeViewHolder) holder).textType.setText(categoryNameUppercase);
 
             }else if (object instanceof Film){
 
