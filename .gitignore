@@ -7,16 +7,9 @@
 /build
 /captures
 .externalNativeBuild
-
-*.iml
-.gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
-.DS_Store
-/build
-/captures
-.externalNativeBuild
+gradlew.*
+gradlew
+gradle
 
 # Built application files
 *.apk
