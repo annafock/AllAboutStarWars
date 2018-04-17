@@ -14,6 +14,7 @@ public class CategoryName extends StarWarsObject{
     }
 
     public String getCategoryName() {
+
         return categoryName;
     }
 

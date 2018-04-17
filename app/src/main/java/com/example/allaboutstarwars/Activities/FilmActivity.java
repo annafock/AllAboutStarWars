@@ -22,7 +22,6 @@ import static com.example.allaboutstarwars.Adapters.CategoryAdapter.EXTRA_STAR_W
 public class FilmActivity extends DetailActivity {
 
     private StarWarsObject starWarsObject;
-    TextView mTextViewDetailTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +29,6 @@ public class FilmActivity extends DetailActivity {
 
         //Recieves object from categoriy activity
         starWarsObject = (Film) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
-
-        setContentView(R.layout.activity_category_item);
 
         //Saves map of url:s with more relating info about this object
         Map<Class, ArrayList<String>> map = new HashMap<>();
@@ -53,10 +50,7 @@ public class FilmActivity extends DetailActivity {
     @Override
     public void onDataLoaded(ArrayList<StarWarsObject> starWarsArray) {
         super.onDataLoaded(starWarsArray);
-
-           mTextViewDetailTitle = (TextView) findViewById(R.id.text_view_detail_title);
-           mTextViewDetailTitle.setText(((Film) starWarsObject).title);
-
+        setTitle(((Film) starWarsObject).title);
     }
 
 

@@ -1,14 +1,12 @@
 package com.example.allaboutstarwars.Activities;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
 import com.example.allaboutstarwars.LoadObjectData;
 import com.example.allaboutstarwars.Models.Film;
 import com.example.allaboutstarwars.Models.People;
 import com.example.allaboutstarwars.Models.Species;
 import com.example.allaboutstarwars.Models.StarWarsObject;
-import com.example.allaboutstarwars.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +21,6 @@ import static com.example.allaboutstarwars.Adapters.CategoryAdapter.EXTRA_STAR_W
 public class SpeciesActivity extends DetailActivity {
 
     private StarWarsObject starWarsObject;
-    TextView mTextViewDetailTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +28,6 @@ public class SpeciesActivity extends DetailActivity {
 
         //Recieves object from categoriy activity
         starWarsObject = (Species) getIntent().getSerializableExtra(EXTRA_STAR_WARS_OBJECT);
-        setContentView(R.layout.activity_category_item);
 
         //Saves map of url:s with more relating info about this object
         Map<Class, ArrayList<String>> map = new HashMap<>();
@@ -51,9 +47,7 @@ public class SpeciesActivity extends DetailActivity {
     @Override
     public void onDataLoaded(ArrayList<StarWarsObject> starWarsArray) {
         super.onDataLoaded(starWarsArray);
-
-        mTextViewDetailTitle = (TextView) findViewById(R.id.text_view_detail_title);
-        mTextViewDetailTitle.setText(((Species) starWarsObject).name);
+        setTitle(((Species) starWarsObject).name);
 
     }
 
